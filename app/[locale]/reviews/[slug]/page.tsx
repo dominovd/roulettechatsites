@@ -42,7 +42,51 @@ export default function ReviewPage({ params: { slug, locale } }: Props) {
   const related = getRelatedReviews(slug, 3);
   const prefix = locale === 'en' ? '' : `/${locale}`;
 
-  const jsonLd = {
+  const isFree = review.features.find(f => f.label === 'Free')?.value === true;
+  const needsReg = review.features.find(f => f.label === 'Registration')?.value === true;
+  const hasMobile = review.features.find(f => f.label === 'Mobile app')?.value === true;
+  const hasGender = review.features.find(f => f.label === 'Gender filter')?.value === true;
+  const hasCountry = review.features.find(f => f.label === 'Country filter')?.value === true;
+  const status = review.features.find(f => f.label === 'Status')?.value as string;
+
+  const faq = [
+    {
+      q: `Is ${review.name} free to use?`,
+      a: isFree
+        ? `Yes, ${review.name} is free to use. You can start chatting without paying.`
+        : `${review.name} offers a free tier but some features require a paid subscription.`,
+    },
+    {
+      q: `Do you need to register to use ${review.name}?`,
+      a: needsReg
+        ? `Yes, ${review.name} requires you to create an account before you can start chatting.`
+        : `No, ${review.name} does not require registration. You can start chatting instantly without an account.`,
+    },
+    {
+      q: `Does ${review.name} have a mobile app?`,
+      a: hasMobile
+        ? `Yes, ${review.name} has a dedicated mobile app available for iOS and Android.`
+        : `${review.name} does not have a standalone mobile app, but it works in mobile browsers.`,
+    },
+    {
+      q: `Does ${review.name} support gender or country filters?`,
+      a: hasGender || hasCountry
+        ? `Yes. ${review.name} supports ${[hasGender && 'gender filter', hasCountry && 'country filter'].filter(Boolean).join(' and ')}.`
+        : `${review.name} does not currently offer gender or country filters.`,
+    },
+    {
+      q: `What is the best alternative to ${review.name}?`,
+      a: `RouletteChat is one of the top alternatives — it's free, requires no sign-up, and connects you with people from 180+ countries instantly.`,
+    },
+    {
+      q: `Is ${review.name} still active in 2025?`,
+      a: status === 'Shut down'
+        ? `No, ${review.name} has been shut down and is no longer available. Try RouletteChat as a free alternative.`
+        : `Yes, ${review.name} is still active and available in 2025.`,
+    },
+  ];
+
+  const reviewJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Review',
     name: `${review.name} Review`,
@@ -58,6 +102,16 @@ export default function ReviewPage({ params: { slug, locale } }: Props) {
       name: review.name,
       url: `https://${review.website}`,
     },
+  };
+
+  const faqJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faq.map(({ q, a }) => ({
+      '@type': 'Question',
+      name: q,
+      acceptedAnswer: { '@type': 'Answer', text: a },
+    })),
   };
 
   return (
@@ -156,6 +210,22 @@ export default function ReviewPage({ params: { slug, locale } }: Props) {
           </a>
         </div>
 
+        {/* FAQ */}
+        <div className="mb-14">
+          <h2 className="font-black text-xl mb-6">Frequently Asked Questions</h2>
+          <div className="flex flex-col gap-3">
+            {faq.map(({ q, a }) => (
+              <details key={q} className="group card-glass rounded-2xl overflow-hidden">
+                <summary className="flex items-center justify-between gap-4 cursor-pointer px-6 py-5 font-semibold text-[0.95rem] select-none list-none">
+                  {q}
+                  <span className="text-purple-light flex-shrink-0 transition-transform duration-200 group-open:rotate-45">＋</span>
+                </summary>
+                <p className="px-6 pb-5 text-sm text-muted leading-relaxed">{a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+
         {/* Related */}
         <h2 className="font-black text-xl mb-6">More Reviews</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -167,7 +237,11 @@ export default function ReviewPage({ params: { slug, locale } }: Props) {
 
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(reviewJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
     </div>
   );

@@ -31,6 +31,33 @@ const HOW_STEPS = [
   { step: '3', title: 'Chat or Skip', desc: "Love the match? Keep talking. Don't feel it? Hit Next instantly." },
 ];
 
+const FAQ = [
+  {
+    q: 'What is RouletteChat?',
+    a: 'RouletteChat is a free random video chat platform that instantly connects you with real people from over 180 countries. No profiles, no swiping — just genuine face-to-face conversations.',
+  },
+  {
+    q: 'Is RouletteChat completely free?',
+    a: 'Yes. You can start video chatting right away at no cost. No credit card needed, no hidden fees. Creating an account unlocks extra features like gender and country filters.',
+  },
+  {
+    q: 'Do I need to sign up to use RouletteChat?',
+    a: 'No registration is required to start chatting. Simply open the site, click "Start Video Chat", and you are connected within seconds.',
+  },
+  {
+    q: 'Is RouletteChat safe?',
+    a: 'Safety is our top priority. The platform uses AI-powered moderation that runs 24/7 to detect and remove inappropriate content. You can also skip or report any user instantly with one click.',
+  },
+  {
+    q: 'Which devices does RouletteChat work on?',
+    a: 'RouletteChat works entirely in your browser — no app download required. It is fully compatible with desktop, tablet, and mobile devices on Chrome, Safari, Firefox, and Edge.',
+  },
+  {
+    q: 'Can I filter chats by gender or country?',
+    a: 'Yes. Gender and country filters are available to registered users. Sign up for free to unlock these options and find conversations that match your preferences.',
+  },
+];
+
 export default function HomePage() {
   return (
     <>
@@ -213,6 +240,30 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ── FAQ ── */}
+      <section className="px-5 py-20">
+        <div className="max-w-3xl mx-auto">
+          <p className="text-center text-[0.75rem] font-bold uppercase tracking-[3px] text-purple-light mb-3">FAQ</p>
+          <h2 className="text-[clamp(1.8rem,3.5vw,2.8rem)] font-black tracking-tight text-center mb-12">
+            Frequently Asked Questions
+          </h2>
+          <div className="flex flex-col gap-3">
+            {FAQ.map(({ q, a }) => (
+              <details
+                key={q}
+                className="group card-glass rounded-2xl overflow-hidden"
+              >
+                <summary className="flex items-center justify-between gap-4 cursor-pointer px-6 py-5 font-semibold text-[0.95rem] select-none list-none">
+                  {q}
+                  <span className="text-purple-light flex-shrink-0 transition-transform duration-200 group-open:rotate-45">＋</span>
+                </summary>
+                <p className="px-6 pb-5 text-sm text-muted leading-relaxed">{a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ── BOTTOM CTA ── */}
       <section className="px-5 pb-20">
         <div className="max-w-2xl mx-auto text-center bg-gradient-to-br from-purple-600/15 to-pink-500/12 border border-purple-500/25 rounded-3xl p-14 relative overflow-hidden">
@@ -234,7 +285,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* JSON-LD structured data */}
+      {/* JSON-LD: WebSite */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -249,6 +300,21 @@ export default function HomePage() {
               target: 'https://roulettechatsites.com/reviews?q={search_term_string}',
               'query-input': 'required name=search_term_string',
             },
+          }),
+        }}
+      />
+      {/* JSON-LD: FAQPage */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'FAQPage',
+            mainEntity: FAQ.map(({ q, a }) => ({
+              '@type': 'Question',
+              name: q,
+              acceptedAnswer: { '@type': 'Answer', text: a },
+            })),
           }),
         }}
       />

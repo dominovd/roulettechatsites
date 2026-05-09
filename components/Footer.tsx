@@ -45,7 +45,6 @@ export default function Footer({ locale }: { locale: string }) {
           <div className="flex flex-wrap gap-10">
             {Object.entries(FOOTER_LINKS).map(([title, links]) => (
               <div key={title}>
-                <h4 className="text-[0.7rem] font-bold uppercase tracking-[2px] text-muted mb-4">{title}</h4>
                 <ul className="flex flex-col gap-2.5">
                   {links.map((link) => (
                     <li key={link.href}>
