@@ -9,17 +9,17 @@ export const metadata: Metadata = {
 
 const POSTS = [
   {
-    slug: 'omegle-alternatives-2025',
+    slug: 'omegle-alternatives-2026',
     category: 'Guides',
-    date: 'April 12, 2025',
-    title: 'Best Omegle Alternatives in 2025 (Tested & Ranked)',
+    date: 'April 12, 2026',
+    title: 'Best Omegle Alternatives in 2026 (Tested & Ranked)',
     excerpt: 'Omegle shut down in 2023, but the world of random video chat is alive and well. We tested 12 alternatives so you can find the best one for you.',
     readTime: '6 min read',
   },
   {
     slug: 'how-to-stay-safe-random-video-chat',
     category: 'Safety',
-    date: 'March 28, 2025',
+    date: 'March 28, 2026',
     title: 'How to Stay Safe on Random Video Chat Sites',
     excerpt: 'Random video chat is exciting — but it comes with risks. Here are the essential safety tips every user should know before their first chat.',
     readTime: '5 min read',
@@ -27,15 +27,15 @@ const POSTS = [
   {
     slug: 'chatroulette-vs-azar',
     category: 'Reviews',
-    date: 'March 5, 2025',
-    title: 'Chatroulette vs Azar: Which Is Better in 2025?',
+    date: 'March 5, 2026',
+    title: 'Chatroulette vs Azar: Which Is Better in 2026?',
     excerpt: 'Two giants of random video chat go head-to-head. We compare features, user base, moderation, and overall experience.',
     readTime: '7 min read',
   },
   {
     slug: 'random-chat-conversation-tips',
     category: 'Tips',
-    date: 'February 18, 2025',
+    date: 'February 18, 2026',
     title: '10 Tips for Having Great Conversations with Strangers',
     excerpt: 'Meeting random people online can feel awkward. These proven conversation starters and techniques will help you have better chats every time.',
     readTime: '4 min read',
@@ -43,7 +43,7 @@ const POSTS = [
   {
     slug: 'video-chat-history',
     category: 'Deep Dive',
-    date: 'January 30, 2025',
+    date: 'January 30, 2026',
     title: 'The History of Random Video Chat: From Omegle to Today',
     excerpt: 'How did random chat go from a teenager\'s experiment to a global phenomenon? We trace the full story from 2009 to the present.',
     readTime: '8 min read',
@@ -51,7 +51,7 @@ const POSTS = [
   {
     slug: 'best-random-chat-for-language-learning',
     category: 'Guides',
-    date: 'January 10, 2025',
+    date: 'January 10, 2026',
     title: 'Using Random Video Chat to Learn a Language Faster',
     excerpt: 'Native speakers are the best teachers. Here is how to use random video chat platforms to supercharge your language learning.',
     readTime: '5 min read',

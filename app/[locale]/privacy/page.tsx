@@ -13,7 +13,7 @@ export default function PrivacyPage() {
         <div className="mb-12">
           <p className="text-[0.75rem] font-bold uppercase tracking-[3px] text-purple-light mb-3">Legal</p>
           <h1 className="text-[clamp(2rem,4vw,3rem)] font-black tracking-tight mb-3">Privacy Policy</h1>
-          <p className="text-muted text-sm">Last updated: January 1, 2025</p>
+          <p className="text-muted text-sm">Last updated: January 1, 2026</p>
         </div>
 
         <div className="flex flex-col gap-8 text-sm text-muted leading-relaxed">

@@ -3,7 +3,7 @@ import { reviews } from '@/lib/reviews';
 import ReviewCard from '@/components/ReviewCard';
 
 export const metadata: Metadata = {
-  title: 'Best Random Video Chat Sites – Reviews & Ratings 2025',
+  title: 'Best Random Video Chat Sites – Reviews & Ratings 2026',
   description:
     'Unbiased reviews of the best random video chat sites: Omegle, Chatroulette, Azar, Monkey and more. Compare features, safety, and user ratings.',
   alternates: { canonical: 'https://roulettechatsites.com/reviews' },
@@ -20,7 +20,7 @@ export default function ReviewsPage({ params: { locale } }: { params: { locale: 
           <p className="text-[0.75rem] font-bold uppercase tracking-[3px] text-purple-light mb-3">Expert Reviews</p>
           <h1 className="text-[clamp(2rem,4vw,3.2rem)] font-black tracking-tight mb-4">
             Best Random Video<br />
-            <span className="gradient-text">Chat Sites 2025</span>
+            <span className="gradient-text">Chat Sites 2026</span>
           </h1>
           <p className="text-muted max-w-xl mx-auto text-[0.95rem] leading-relaxed">
             We tested every major platform so you don&apos;t have to. Honest ratings based on video quality,

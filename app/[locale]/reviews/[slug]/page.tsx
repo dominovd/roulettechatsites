@@ -16,8 +16,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const review = getReview(params.slug);
   if (!review) return {};
   return {
-    title: `${review.name} Review 2025 – Honest Rating & Alternatives`,
-    description: `Is ${review.name} worth it in 2025? Our honest review covers safety, features, video quality, and the best alternatives. Rating: ${review.rating}/5.`,
+    title: `${review.name} Review 2026 – Honest Rating & Alternatives`,
+    description: `Is ${review.name} worth it in 2026? Our honest review covers safety, features, video quality, and the best alternatives. Rating: ${review.rating}/5.`,
     alternates: { canonical: `https://roulettechatsites.com/reviews/${params.slug}` },
   };
 }
@@ -79,10 +79,10 @@ export default function ReviewPage({ params: { slug, locale } }: Props) {
       a: `RouletteChat is one of the top alternatives — it's free, requires no sign-up, and connects you with people from 180+ countries instantly.`,
     },
     {
-      q: `Is ${review.name} still active in 2025?`,
+      q: `Is ${review.name} still active in 2026?`,
       a: status === 'Shut down'
         ? `No, ${review.name} has been shut down and is no longer available. Try RouletteChat as a free alternative.`
-        : `Yes, ${review.name} is still active and available in 2025.`,
+        : `Yes, ${review.name} is still active and available in 2026.`,
     },
   ];
 
@@ -186,7 +186,7 @@ export default function ReviewPage({ params: { slug, locale } }: Props) {
             </p>
             {status !== 'Shut down' ? (
               <p>
-                As of 2025, {review.name} is still active and used by people in multiple countries. It is commonly used for language practice, making friends online, curing boredom, and exploring conversations with strangers you would never meet any other way. {isFree ? 'The core features are free to use.' : 'A free tier is available alongside premium options.'}
+                As of 2026, {review.name} is still active and used by people in multiple countries. It is commonly used for language practice, making friends online, curing boredom, and exploring conversations with strangers you would never meet any other way. {isFree ? 'The core features are free to use.' : 'A free tier is available alongside premium options.'}
               </p>
             ) : (
               <p>
