@@ -76,7 +76,7 @@ const COMPAT_SCORES: number[][][] = [
 const COMPAT_RESULTS = [
   { name: 'CallMeChat', emoji: '💬', desc: 'Clean, filter-friendly, and requires no account. Perfect for your chat style.' },
   { name: 'Azar', emoji: '🌍', desc: 'Location-aware, swipe-based, and great on mobile. Matches your vibe.' },
-  { name: 'Monkey', emoji: '🐒', desc: 'Young, fast-paced, and all about fun. Exactly what you're looking for.' },
+  { name: 'Monkey', emoji: '🐒', desc: "Young, fast-paced, and all about fun. Exactly what you're looking for." },
   { name: 'Chatroulette', emoji: '🎲', desc: 'The classic random webcam experience. Simple and spontaneous.' },
   { name: 'ChatSpin', emoji: '🔄', desc: 'Feature-rich with gender and country filters. Matches your preferences.' },
 ];
