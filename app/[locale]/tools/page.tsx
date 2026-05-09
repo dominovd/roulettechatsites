@@ -2,7 +2,7 @@ export const runtime = 'edge';
 
 import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
-import { Link } from '@/navigation';
+import Link from 'next/link';
 import { locales } from '@/i18n';
 
 const BASE = 'https://roulettechatsites.com';
@@ -76,6 +76,7 @@ export default async function ToolsPage({
   params: { locale: string };
 }) {
   const t = await getTranslations({ locale, namespace: 'tools' });
+  const base = locale === 'en' ? '' : `/${locale}`;
 
   return (
     <div className="px-5 pt-28 pb-20">
@@ -94,7 +95,7 @@ export default async function ToolsPage({
           {TOOLS.map(({ slug, emoji, titleKey, subKey, badge }) => (
             <Link
               key={slug}
-              href={`/tools/${slug}` as any}
+              href={`${base}/tools/${slug}`}
               className="card-glass p-6 flex flex-col gap-4 group hover:border-purple-500/30 transition-colors"
             >
               <div className="flex items-start justify-between">

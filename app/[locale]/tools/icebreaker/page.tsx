@@ -1,7 +1,7 @@
 export const runtime = 'edge';
 
 import { getTranslations } from 'next-intl/server';
-import { Link } from '@/navigation';
+import Link from 'next/link';
 import { IcebreakerTool } from '@/components/ToolsClient';
 
 export default async function IcebreakerPage({
@@ -14,7 +14,7 @@ export default async function IcebreakerPage({
   return (
     <div className="px-5 pt-28 pb-20">
       <div className="max-w-lg mx-auto">
-        <Link href="/tools" className="inline-flex items-center gap-1.5 text-sm text-muted hover:text-white transition-colors mb-8">
+        <Link href={locale === 'en' ? '/tools' : `/${locale}/tools`} className="inline-flex items-center gap-1.5 text-sm text-muted hover:text-white transition-colors mb-8">
           ← {t('backToTools')}
         </Link>
         <div className="mb-8">
