@@ -5,12 +5,14 @@ import { reviews } from '@/lib/reviews';
 export const metadata: Metadata = {
   title: 'Compare Random Video Chat Sites – Side by Side',
   description:
-    'Compare Omegle, Chatroulette, Azar, Monkey and more side by side. Features, safety, user count, and ratings at a glance.',
+    'Compare CallMeChat, Chatroulette, Azar, Monkey, ChatSpin and Chatrandom side by side. Features, safety, user count, and ratings at a glance.',
 };
+
+const COMPARE_SLUGS = ['callmechat', 'chatroulette', 'azar', 'monkey', 'chatspin', 'chatrandom'];
 
 export default function ComparePage({ params: { locale } }: { params: { locale: string } }) {
   const prefix = locale === 'en' ? '' : `/${locale}`;
-  const cols = reviews.slice(0, 5); // top 5 in compare table
+  const cols = COMPARE_SLUGS.map((slug) => reviews.find((r) => r.slug === slug)!).filter(Boolean);
 
   return (
     <div className="px-5 pt-28 pb-20">
