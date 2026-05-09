@@ -286,6 +286,8 @@
     "styleStart": "퀴즈 시작 →",
     "styleQuestion": "질문 {n} / 8",
     "styleResultHeading": "당신은",
-    "styleRestart": "다시 시도"
+    "styleRestart": "다시 시도",
+    "tryTool": "사용해보기 →",
+    "backToTools": "모든 도구"
   }
 }

@@ -286,6 +286,8 @@
     "styleStart": "Fai il quiz →",
     "styleQuestion": "Domanda {n} di 8",
     "styleResultHeading": "Sei",
-    "styleRestart": "Riprova"
+    "styleRestart": "Riprova",
+    "tryTool": "Provalo →",
+    "backToTools": "Tutti gli strumenti"
   }
 }

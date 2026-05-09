@@ -273,7 +273,6 @@
     "usernameTitle": "Kullanıcı Adı Üretici",
     "usernameSub": "Sohbetin için rastgele anonim bir takma ad al.",
     "usernameGenerate": "Üret",
-    "usernameGenerate": "Üret",
     "usernameCopy": "Kopyala",
     "usernameCopied": "Kopyalandı!",
     "compatTitle": "Uyumluluk Testi",
@@ -287,6 +286,8 @@
     "styleStart": "Quiz'i başlat →",
     "styleQuestion": "Soru {n} / 8",
     "styleResultHeading": "Sen",
-    "styleRestart": "Tekrar dene"
+    "styleRestart": "Tekrar dene",
+    "tryTool": "Dene →",
+    "backToTools": "Tüm Araçlar"
   }
 }

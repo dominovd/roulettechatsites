@@ -286,6 +286,8 @@
     "styleStart": "ابدأ الاختبار →",
     "styleQuestion": "السؤال {n} من 8",
     "styleResultHeading": "أنت",
-    "styleRestart": "حاول مجدداً"
+    "styleRestart": "حاول مجدداً",
+    "tryTool": "جرّبه →",
+    "backToTools": "جميع الأدوات"
   }
 }
