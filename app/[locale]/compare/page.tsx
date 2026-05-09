@@ -1,11 +1,19 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { reviews } from '@/lib/reviews';
+import { locales } from '@/i18n';
+
+const BASE = 'https://roulettechatsites.com';
+const lp = (locale: string) => (locale === 'en' ? '' : `/${locale}`);
+
+const langs: Record<string, string> = { 'x-default': `${BASE}/compare` };
+for (const locale of locales) langs[locale] = `${BASE}${lp(locale)}/compare`;
 
 export const metadata: Metadata = {
   title: 'Compare Random Video Chat Sites – Side by Side',
   description:
     'Compare CallMeChat, Chatroulette, Azar, Monkey, ChatSpin and Chatrandom side by side. Features, safety, user count, and ratings at a glance.',
+  alternates: { canonical: `${BASE}/compare`, languages: langs },
 };
 
 const COMPARE_SLUGS = ['callmechat', 'chatroulette', 'azar', 'monkey', 'chatspin', 'chatrandom'];

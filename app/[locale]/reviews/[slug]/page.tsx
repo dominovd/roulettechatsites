@@ -3,6 +3,10 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { getReview, getRelatedReviews, reviews } from '@/lib/reviews';
 import ReviewCard from '@/components/ReviewCard';
+import { locales } from '@/i18n';
+
+const BASE = 'https://roulettechatsites.com';
+const lp = (locale: string) => (locale === 'en' ? '' : `/${locale}`);
 
 interface Props {
   params: { slug: string; locale: string };
@@ -15,10 +19,19 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const review = getReview(params.slug);
   if (!review) return {};
+
+  const path = `/reviews/${params.slug}`;
+  const canonical = `${BASE}${lp(params.locale)}${path}`;
+
+  const languages: Record<string, string> = { 'x-default': `${BASE}${path}` };
+  for (const locale of locales) {
+    languages[locale] = `${BASE}${lp(locale)}${path}`;
+  }
+
   return {
     title: `${review.name} Review 2026 – Honest Rating & Alternatives`,
     description: `Is ${review.name} worth it in 2026? Our honest review covers safety, features, video quality, and the best alternatives. Rating: ${review.rating}/5.`,
-    alternates: { canonical: `https://roulettechatsites.com/reviews/${params.slug}` },
+    alternates: { canonical, languages },
   };
 }
 

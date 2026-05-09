@@ -1,0 +1,36 @@
+{
+  "nav": {
+    "reviews": "Bewertungen",
+    "compare": "Vergleichen",
+    "tools": "Tools",
+    "start": "Chat starten →"
+  },
+  "hero": {
+    "badge": "Personen jetzt online",
+    "headline1": "Triff Jemanden",
+    "headline2": "Echten. Jetzt.",
+    "sub": "Sofortiger zufälliger Video-Chat mit echten Menschen aus 180 Ländern. Keine langweiligen Profile, nur echte Gespräche von Angesicht zu Angesicht.",
+    "cta": "Video-Chat starten — Kostenlos",
+    "howItWorks": "Wie es funktioniert"
+  },
+  "stats": {
+    "countries": "Länder",
+    "users": "Monatliche Nutzer",
+    "free": "Kostenlos",
+    "speed": "Match-Zeit"
+  },
+  "chat": {
+    "heading": "Einsteigen und Menschen Kennenlernen",
+    "sub": "Keine Anmeldung erforderlich. Erstelle ein kostenloses Konto, um Filter freizuschalten.",
+    "bannerTitle": "Geschlechts- und Länderfilter freischalten",
+    "bannerSub": "Kostenlos anmelden — 30 Sekunden. Keine Kreditkarte.",
+    "bannerCta": "Kostenloses Konto erstellen →",
+    "nudge": "Gefällt es dir?",
+    "nudgeLink": "Erstelle ein kostenloses Konto",
+    "nudgeSuffix": "um Filter und Favoriten freizuschalten."
+  },
+  "footer": {
+    "tagline": "Der schnellste zufällige Video-Chat der Welt. Echte Menschen treffen, echte Gespräche führen.",
+    "copyright": "Alle Rechte vorbehalten."
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "nav": {
+    "reviews": "Recenzje",
+    "compare": "Porównaj",
+    "tools": "Narzedzia",
+    "start": "Zacznij Rozmowę →"
+  },
+  "hero": {
+    "badge": "osób online teraz",
+    "headline1": "Poznaj Kogoś",
+    "headline2": "Prawdziwego. Teraz.",
+    "sub": "Błyskawiczny losowy czat wideo z prawdziwymi ludźmi ze 180 krajów. Bez nudnych profili, tylko szczere rozmowy twarzą w twarz.",
+    "cta": "Zacznij Czat Wideo — Bezpłatnie",
+    "howItWorks": "Jak to działa"
+  },
+  "stats": {
+    "countries": "Kraje",
+    "users": "Użytkownicy miesięcznie",
+    "free": "Bezpłatnie",
+    "speed": "Czas dopasowania"
+  },
+  "chat": {
+    "heading": "Wskocz i Poznaj Ludzi",
+    "sub": "Rejestracja nie jest wymagana. Utwórz bezpłatne konto, aby odblokować filtry.",
+    "bannerTitle": "Odblokuj Filtry Płci i Kraju",
+    "bannerSub": "Zarejestruj się bezpłatnie — 30 sekund. Bez karty kredytowej.",
+    "bannerCta": "Utwórz Bezpłatne Konto →",
+    "nudge": "Podoba ci się?",
+    "nudgeLink": "Utwórz bezpłatne konto",
+    "nudgeSuffix": "aby odblokować filtry i zapisać ulubione dopasowania."
+  },
+  "footer": {
+    "tagline": "Najszybszy losowy czat wideo na świecie. Poznaj prawdziwych ludzi, prowadź prawdziwe rozmowy.",
+    "copyright": "Wszelkie prawa zastrzeżone."
+  }
+}

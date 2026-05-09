@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { cn } from '@/lib/cn';
 
 const NAV_LINKS = [
@@ -11,10 +11,39 @@ const NAV_LINKS = [
   { href: '/tools', label: 'Tools' },
 ];
 
+const LANGUAGES = [
+  { code: 'en', label: 'English',    flag: '🇬🇧' },
+  { code: 'pl', label: 'Polski',     flag: '🇵🇱' },
+  { code: 'de', label: 'Deutsch',    flag: '🇩🇪' },
+  { code: 'es', label: 'Español',    flag: '🇪🇸' },
+  { code: 'fr', label: 'Français',   flag: '🇫🇷' },
+  { code: 'ja', label: '日本語',      flag: '🇯🇵' },
+  { code: 'ar', label: 'العربية',    flag: '🇸🇦' },
+  { code: 'it', label: 'Italiano',   flag: '🇮🇹' },
+  { code: 'pt', label: 'Português',  flag: '🇧🇷' },
+  { code: 'tr', label: 'Türkçe',     flag: '🇹🇷' },
+  { code: 'ko', label: '한국어',      flag: '🇰🇷' },
+  { code: 'ru', label: 'Русский',    flag: '🇷🇺' },
+];
+
+function getLangPath(currentPath: string, currentLocale: string, targetLocale: string): string {
+  const currentPrefix = currentLocale === 'en' ? '' : `/${currentLocale}`;
+  const targetPrefix = targetLocale === 'en' ? '' : `/${targetLocale}`;
+  const pathWithoutLocale = currentPrefix
+    ? currentPath.replace(new RegExp(`^/${currentLocale}(?=/|$)`), '')
+    : currentPath;
+  return `${targetPrefix}${pathWithoutLocale || '/'}`;
+}
+
 export default function Navbar({ locale }: { locale: string }) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [langOpen, setLangOpen] = useState(false);
   const pathname = usePathname();
+  const langRef = useRef<HTMLDivElement>(null);
+
+  const prefix = locale === 'en' ? '' : `/${locale}`;
+  const currentLang = LANGUAGES.find((l) => l.code === locale) ?? LANGUAGES[0];
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -22,7 +51,15 @@ export default function Navbar({ locale }: { locale: string }) {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const prefix = locale === 'en' ? '' : `/${locale}`;
+  useEffect(() => {
+    const handleClick = (e: MouseEvent) => {
+      if (langRef.current && !langRef.current.contains(e.target as Node)) {
+        setLangOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClick);
+    return () => document.removeEventListener('mousedown', handleClick);
+  }, []);
 
   return (
     <nav
@@ -60,6 +97,48 @@ export default function Navbar({ locale }: { locale: string }) {
               {link.label}
             </Link>
           ))}
+
+          {/* Language switcher */}
+          <div className="relative ml-1" ref={langRef}>
+            <button
+              onClick={() => setLangOpen(!langOpen)}
+              className="flex items-center gap-1.5 text-sm font-medium px-3 py-2 rounded-lg text-muted hover:text-white hover:bg-white/[0.05] transition-colors"
+              aria-label="Select language"
+            >
+              <span className="text-base leading-none">{currentLang.flag}</span>
+              <span className="text-xs uppercase tracking-wide">{currentLang.code}</span>
+              <svg className={cn('w-3 h-3 transition-transform', langOpen && 'rotate-180')} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+
+            {langOpen && (
+              <div className="absolute right-0 top-full mt-2 w-44 bg-[#0f0f1a] border border-white/[0.10] rounded-xl shadow-2xl overflow-hidden z-50">
+                {LANGUAGES.map((lang) => (
+                  <Link
+                    key={lang.code}
+                    href={getLangPath(pathname, locale, lang.code)}
+                    onClick={() => setLangOpen(false)}
+                    className={cn(
+                      'flex items-center gap-3 px-4 py-2.5 text-sm transition-colors',
+                      lang.code === locale
+                        ? 'text-white bg-purple-600/20'
+                        : 'text-muted hover:text-white hover:bg-white/[0.05]'
+                    )}
+                  >
+                    <span className="text-base leading-none">{lang.flag}</span>
+                    <span>{lang.label}</span>
+                    {lang.code === locale && (
+                      <svg className="w-3 h-3 ml-auto text-purple-light" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                    )}
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
+
           <Link
             href={`${prefix}/#chat`}
             className="ml-2 bg-brand text-white text-sm font-bold px-5 py-2.5 rounded-xl hover:opacity-90 hover:-translate-y-px transition-all shadow-glow"
@@ -96,6 +175,30 @@ export default function Navbar({ locale }: { locale: string }) {
               {link.label}
             </Link>
           ))}
+
+          {/* Mobile language list */}
+          <div className="border-t border-white/[0.06] pt-2 mt-1">
+            <p className="text-xs text-muted px-3 mb-2 uppercase tracking-wider">Language</p>
+            <div className="grid grid-cols-2 gap-1">
+              {LANGUAGES.map((lang) => (
+                <Link
+                  key={lang.code}
+                  href={getLangPath(pathname, locale, lang.code)}
+                  onClick={() => setOpen(false)}
+                  className={cn(
+                    'flex items-center gap-2 px-3 py-2 rounded-lg text-xs transition-colors',
+                    lang.code === locale
+                      ? 'text-white bg-purple-600/20'
+                      : 'text-muted hover:text-white hover:bg-white/[0.05]'
+                  )}
+                >
+                  <span>{lang.flag}</span>
+                  <span>{lang.label}</span>
+                </Link>
+              ))}
+            </div>
+          </div>
+
           <Link
             href={`${prefix}/#chat`}
             onClick={() => setOpen(false)}

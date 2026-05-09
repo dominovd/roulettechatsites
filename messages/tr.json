@@ -1,0 +1,36 @@
+{
+  "nav": {
+    "reviews": "İncelemeler",
+    "compare": "Karşılaştır",
+    "tools": "Araçlar",
+    "start": "Sohbete Başla →"
+  },
+  "hero": {
+    "badge": "kişi şu an çevrimiçi",
+    "headline1": "Biriyle Tanış",
+    "headline2": "Gerçek Biriyle. Hemen.",
+    "sub": "180 ülkeden gerçek insanlarla anında rastgele görüntülü sohbet. Sıkıcı profil yok, sadece yüz yüze gerçek konuşmalar.",
+    "cta": "Görüntülü Sohbete Başla — Ücretsiz",
+    "howItWorks": "Nasıl çalışır"
+  },
+  "stats": {
+    "countries": "Ülke",
+    "users": "Aylık kullanıcı",
+    "free": "Ücretsiz",
+    "speed": "Eşleşme süresi"
+  },
+  "chat": {
+    "heading": "Katıl ve İnsanlarla Tanış",
+    "sub": "Denemek için kayıt gerekmez. Filtreleri açmak için ücretsiz hesap oluştur.",
+    "bannerTitle": "Cinsiyet ve Ülke Filtrelerini Aç",
+    "bannerSub": "Ücretsiz kaydol — 30 saniye. Kredi kartı gerekmez.",
+    "bannerCta": "Ücretsiz Hesap Oluştur →",
+    "nudge": "Beğendin mi?",
+    "nudgeLink": "Ücretsiz hesap oluştur",
+    "nudgeSuffix": "filtreleri açmak ve favori eşleşmelerini kaydetmek için."
+  },
+  "footer": {
+    "tagline": "Dünyanın en hızlı rastgele görüntülü sohbeti. Gerçek insanlarla tanış, gerçek konuşmalar yap.",
+    "copyright": "Tüm hakları saklıdır."
+  }
+}

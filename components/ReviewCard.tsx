@@ -34,22 +34,22 @@ export default function ReviewCard({ review, locale }: { review: Review; locale:
         'hover:shadow-[0_0_40px_rgba(124,58,237,.15)]'
       )}
     >
-      {/* Header */}
-      <div className="flex items-start justify-between gap-3 mb-4">
-        <div>
-          <div className="flex items-center gap-2 mb-1">
-            <h3 className="font-bold text-lg text-white">{review.name}</h3>
-            <span className={cn('text-[0.65rem] font-semibold px-2 py-0.5 rounded-full border', CATEGORY_COLORS[review.category])}>
-              {review.category}
-            </span>
-          </div>
-          <p className="text-muted text-sm">{review.tagline}</p>
-        </div>
-        <div className="text-right flex-shrink-0">
-          <StarRating rating={review.rating} />
-          <span className="text-xs text-muted mt-0.5 block">{review.ratingCount.toLocaleString()} reviews</span>
-        </div>
+      {/* Header: name + category */}
+      <div className="flex items-center gap-2 mb-1">
+        <h3 className="font-bold text-lg text-white leading-tight">{review.name}</h3>
+        <span className={cn('text-[0.65rem] font-semibold px-2 py-0.5 rounded-full border flex-shrink-0', CATEGORY_COLORS[review.category])}>
+          {review.category}
+        </span>
       </div>
+
+      {/* Rating row */}
+      <div className="flex items-center gap-2 mb-1">
+        <StarRating rating={review.rating} />
+        <span className="text-xs text-muted">{review.ratingCount.toLocaleString()} reviews</span>
+      </div>
+
+      {/* Tagline */}
+      <p className="text-muted text-sm mb-4 leading-relaxed">{review.tagline}</p>
 
       {/* Quick feature pills */}
       <div className="flex flex-wrap gap-1.5 mb-4">

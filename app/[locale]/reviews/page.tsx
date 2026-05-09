@@ -1,12 +1,19 @@
 import type { Metadata } from 'next';
 import { reviews } from '@/lib/reviews';
 import ReviewCard from '@/components/ReviewCard';
+import { locales } from '@/i18n';
+
+const BASE = 'https://roulettechatsites.com';
+const lp = (locale: string) => (locale === 'en' ? '' : `/${locale}`);
+
+const langs: Record<string, string> = { 'x-default': `${BASE}/reviews` };
+for (const locale of locales) langs[locale] = `${BASE}${lp(locale)}/reviews`;
 
 export const metadata: Metadata = {
   title: 'Best Random Video Chat Sites – Reviews & Ratings 2026',
   description:
     'Unbiased reviews of the best random video chat sites: Omegle, Chatroulette, Azar, Monkey and more. Compare features, safety, and user ratings.',
-  alternates: { canonical: 'https://roulettechatsites.com/reviews' },
+  alternates: { canonical: `${BASE}/reviews`, languages: langs },
 };
 
 const sorted = [...reviews].sort((a, b) => b.rating - a.rating);

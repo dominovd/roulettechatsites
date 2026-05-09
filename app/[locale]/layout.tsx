@@ -11,49 +11,69 @@ import Footer from '@/components/Footer';
 import '@/styles/globals.css';
 
 const inter = Inter({
-  subsets: ['latin', 'cyrillic'],
+  subsets: ['latin', 'latin-ext', 'cyrillic'],
   variable: '--font-inter',
   display: 'swap',
 });
 
-export const metadata: Metadata = {
-  title: {
-    default: 'RouletteChat – Meet Random People via Free Video Chat',
-    template: '%s | RouletteChat',
-  },
-  description:
-    'Instant random video chat with real people from 180+ countries. No sign-up needed. Meet new friends, explore cultures, have genuine conversations.',
-  keywords: [
-    'random video chat', 'roulette chat', 'stranger chat', 'omegle alternative',
-    'chatroulette alternative', 'free video chat', 'meet random people',
-  ],
-  openGraph: {
-    type: 'website',
-    siteName: 'RouletteChat',
-    title: 'RouletteChat – Meet Random People via Free Video Chat',
-    description: 'Instant random video chat with real people from 180+ countries.',
-    url: 'https://roulettechatsites.com',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'RouletteChat – Free Random Video Chat',
-    description: 'Instant random video chat with real people from 180+ countries.',
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: { index: true, follow: true },
-  },
-  alternates: {
-    canonical: 'https://roulettechatsites.com',
-    languages: {
-      'en': 'https://roulettechatsites.com',
-      'ru': 'https://roulettechatsites.com/ru',
-      'es': 'https://roulettechatsites.com/es',
-      'pt': 'https://roulettechatsites.com/pt',
+const BASE = 'https://roulettechatsites.com';
+const lp = (locale: string) => (locale === 'en' ? '' : `/${locale}`);
+
+// Build hreflang map for a given path across all locales
+function buildAlternates(path: string = '') {
+  const languages: Record<string, string> = {};
+  for (const locale of locales) {
+    languages[locale] = `${BASE}${lp(locale)}${path}`;
+  }
+  // x-default points to the English version
+  languages['x-default'] = `${BASE}${path}`;
+  return languages;
+}
+
+export async function generateMetadata({
+  params: { locale },
+}: {
+  params: { locale: string };
+}): Promise<Metadata> {
+  const canonical = `${BASE}${lp(locale)}`;
+
+  return {
+    title: {
+      default: 'RouletteChat – Meet Random People via Free Video Chat',
+      template: '%s | RouletteChat',
     },
-  },
-};
+    description:
+      'Instant random video chat with real people from 180+ countries. No sign-up needed. Meet new friends, explore cultures, have genuine conversations.',
+    keywords: [
+      'random video chat', 'roulette chat', 'stranger chat', 'omegle alternative',
+      'chatroulette alternative', 'free video chat', 'meet random people',
+      'webcam chat', 'cam to cam chat', 'anonymous video chat',
+    ],
+    openGraph: {
+      type: 'website',
+      siteName: 'RouletteChat',
+      title: 'RouletteChat – Meet Random People via Free Video Chat',
+      description: 'Instant random video chat with real people from 180+ countries.',
+      url: canonical,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: 'RouletteChat – Free Random Video Chat',
+      description: 'Instant random video chat with real people from 180+ countries.',
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: { index: true, follow: true },
+    },
+    alternates: {
+      canonical,
+      languages: buildAlternates(),
+    },
+  };
+}
+
+export { buildAlternates };
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
