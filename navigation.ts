@@ -7,11 +7,14 @@ export type Locale = (typeof locales)[number];
 /**
  * Strip any locale prefix from a pathname and prepend the target locale prefix.
  * Works regardless of whether usePathname() returns the path with or without locale.
+ * Always returns a non-empty string starting with '/'.
  */
 export function switchLocale(pathname: string, targetLocale: Locale | string): string {
-  // Build a regex that matches any locale prefix at the start
-  const localePattern = locales.map((l) => l).join('|');
+  // Strip any existing locale prefix
+  const localePattern = locales.join('|');
   const stripped = pathname.replace(new RegExp(`^/(${localePattern})(?=/|$)`), '') || '/';
   const prefix = targetLocale === 'en' ? '' : `/${targetLocale}`;
-  return `${prefix}${stripped}`;
+  const result = `${prefix}${stripped}`;
+  // Ensure result is never empty
+  return result || '/';
 }

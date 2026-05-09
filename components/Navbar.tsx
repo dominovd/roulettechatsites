@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { useState, useEffect, useRef } from 'react';
 import { cn } from '@/lib/cn';
 import { switchLocale } from '@/navigation';
@@ -31,7 +31,6 @@ export default function Navbar({ locale }: { locale: string }) {
   const [open, setOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
   const pathname = usePathname();
-  const router = useRouter();
   const langRef = useRef<HTMLDivElement>(null);
 
   const prefix = locale === 'en' ? '' : `/${locale}`;
@@ -56,9 +55,9 @@ export default function Navbar({ locale }: { locale: string }) {
   function handleLangSwitch(code: string) {
     setLangOpen(false);
     setOpen(false);
+    // Full page navigation so next-intl middleware runs and sets the correct locale
     const target = switchLocale(pathname, code);
-    router.push(target);
-    router.refresh();
+    window.location.href = target;
   }
 
   return (
