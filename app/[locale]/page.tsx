@@ -114,17 +114,15 @@ export default function HomePage() {
               <div className="w-11 h-11 rounded-[11px] bg-brand flex items-center justify-center text-lg flex-shrink-0">⚡</div>
               <div>
                 <strong className="block text-sm font-bold">Unlock Gender &amp; Country Filters</strong>
-                <span className="text-xs text-muted">Sign up free — takes 30 seconds. No credit card.</span>
+                <span className="text-xs text-muted">Start chatting free — no sign-up required.</span>
               </div>
             </div>
-            <a
-              href="https://callmechat.com/register"
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href="#chat"
               className="bg-brand text-white text-sm font-bold px-5 py-2.5 rounded-xl hover:opacity-90 hover:-translate-y-px transition-all shadow-glow whitespace-nowrap"
             >
-              Create Free Account →
-            </a>
+              Start Chatting →
+            </Link>
           </div>
 
           {/* Filter chips */}
@@ -153,16 +151,14 @@ export default function HomePage() {
 
           {/* Post-iframe nudge */}
           <p className="text-center text-sm text-muted mt-5">
-            💬 Enjoying it?{' '}
-            <a
-              href="https://callmechat.com/register"
-              target="_blank"
-              rel="noopener noreferrer"
+            💬 Want filters &amp; more features?{' '}
+            <Link
+              href="#chat"
               className="text-purple-light font-semibold hover:text-white transition-colors"
             >
-              Create a free account
-            </a>{' '}
-            to unlock filters, interests &amp; save your favourite matches.
+              Start chatting now
+            </Link>{' '}
+            — no sign-up required.
           </p>
         </div>
       </section>
@@ -226,17 +222,15 @@ export default function HomePage() {
             <span className="gradient-text">Next Connection?</span>
           </h2>
           <p className="text-muted text-[0.95rem] mb-8">
-            Create a free account to unlock filters, save matches, and access premium features.
+            Jump into the chat — no sign-up, no credit card, instant connection.
           </p>
-          <a
-            href="https://callmechat.com/register"
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            href="#chat"
             className="inline-flex items-center gap-2 bg-brand text-white font-bold text-base px-8 py-4 rounded-[14px] shadow-glow hover:shadow-glow-lg hover:-translate-y-0.5 transition-all"
           >
-            Sign Up Free →
-          </a>
-          <p className="text-xs text-muted mt-4">Free forever. No credit card. Unsubscribe anytime.</p>
+            Start Chatting Free →
+          </Link>
+          <p className="text-xs text-muted mt-4">100% free. No credit card. Start in seconds.</p>
         </div>
       </section>
 

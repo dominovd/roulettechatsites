@@ -35,8 +35,8 @@ export default function ReviewsPage({ params: { locale } }: { params: { locale: 
             <p className="text-xs text-purple-light font-semibold uppercase tracking-wider mb-0.5">Our Top Pick</p>
             <p className="font-bold text-white">
               Looking for the best Omegle alternative? Try{' '}
-              <a href="https://callmechat.com" target="_blank" rel="noopener noreferrer" className="text-purple-light underline underline-offset-2">
-                CallMeChat
+              <a href="/#chat" className="text-purple-light underline underline-offset-2">
+                RouletteChat
               </a>{' '}
               — fast, free, and safe.
             </p>

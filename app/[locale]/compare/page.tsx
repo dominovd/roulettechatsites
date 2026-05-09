@@ -84,9 +84,7 @@ export default function ComparePage({ params: { locale } }: { params: { locale: 
           <h2 className="font-black text-2xl mb-3">Best of all? Try RouletteChat free</h2>
           <p className="text-muted mb-6">Fast matching, global reach, zero cost to start.</p>
           <a
-            href="https://callmechat.com/register"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/#chat"
             className="inline-flex items-center gap-2 bg-brand text-white font-bold px-8 py-3.5 rounded-xl shadow-glow hover:opacity-90 transition-opacity"
           >
             Start Chatting Free →

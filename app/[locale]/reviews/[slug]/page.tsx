@@ -149,9 +149,7 @@ export default function ReviewPage({ params: { slug, locale } }: Props) {
           <p className="text-muted text-sm mb-2">Looking for the best alternative?</p>
           <h3 className="font-bold text-xl mb-4">Try RouletteChat — Free, Fast & Safe</h3>
           <a
-            href="https://callmechat.com/register"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/#chat"
             className="inline-flex items-center gap-2 bg-brand text-white font-bold px-7 py-3.5 rounded-xl shadow-glow hover:opacity-90 transition-opacity"
           >
             Start Chatting Free →
