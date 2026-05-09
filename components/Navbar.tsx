@@ -3,14 +3,9 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState, useEffect, useRef } from 'react';
+import { useTranslations } from 'next-intl';
 import { cn } from '@/lib/cn';
 import { switchLocale } from '@/navigation';
-
-const NAV_LINKS = [
-  { href: '/reviews', label: 'Reviews' },
-  { href: '/compare', label: 'Compare' },
-  { href: '/tools', label: 'Tools' },
-];
 
 const LANGUAGES = [
   { code: 'en', label: 'English',    flag: '🇬🇧' },
@@ -32,9 +27,16 @@ export default function Navbar({ locale }: { locale: string }) {
   const [langOpen, setLangOpen] = useState(false);
   const pathname = usePathname();
   const langRef = useRef<HTMLDivElement>(null);
+  const t = useTranslations('nav');
 
   const prefix = locale === 'en' ? '' : `/${locale}`;
   const currentLang = LANGUAGES.find((l) => l.code === locale) ?? LANGUAGES[0];
+
+  const NAV_LINKS = [
+    { href: '/reviews', label: t('reviews') },
+    { href: '/compare', label: t('compare') },
+    { href: '/tools', label: t('tools') },
+  ];
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -141,7 +143,7 @@ export default function Navbar({ locale }: { locale: string }) {
             href={`${prefix}/#chat`}
             className="ml-2 bg-brand text-white text-sm font-bold px-5 py-2.5 rounded-xl hover:opacity-90 hover:-translate-y-px transition-all shadow-glow"
           >
-            Start Chatting →
+            {t('start')}
           </Link>
         </div>
 
@@ -201,7 +203,7 @@ export default function Navbar({ locale }: { locale: string }) {
             onClick={() => setOpen(false)}
             className="mt-1 bg-brand text-white text-sm font-bold px-4 py-3 rounded-xl text-center hover:opacity-90 transition-opacity"
           >
-            Start Chatting →
+            {t('start')}
           </Link>
         </div>
       )}

@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { OnlineCounter } from '@/components/OnlineCounter';
 import { locales } from '@/i18n';
+import { getTranslations } from 'next-intl/server';
 
 const BASE = 'https://roulettechatsites.com';
 const lp = (locale: string) => (locale === 'en' ? '' : `/${locale}`);
@@ -82,7 +83,9 @@ const FAQ = [
   },
 ];
 
-export default function HomePage({ params: { locale } }: { params: { locale: string } }) {
+export default async function HomePage({ params: { locale } }: { params: { locale: string } }) {
+  const t = await getTranslations({ locale });
+
   return (
     <>
       {/* ── HERO ── */}
@@ -93,18 +96,17 @@ export default function HomePage({ params: { locale } }: { params: { locale: str
         {/* Badge */}
         <div className="inline-flex items-center gap-2 bg-purple-600/15 border border-purple-500/35 rounded-full px-4 py-1.5 text-xs font-semibold text-purple-300 mb-7 animate-fadeUp">
           <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-dot" />
-          <OnlineCounter base={8241} /> people online now
+          <OnlineCounter base={8241} /> {t('hero.badge')}
         </div>
 
         {/* Headline */}
         <h1 className="text-[clamp(2.6rem,6vw,5.2rem)] font-black leading-[1.07] tracking-[-2px] mb-5 animate-fadeUp [animation-delay:100ms]">
-          Meet Someone<br />
-          <span className="gradient-text">Real. Right Now.</span>
+          {t('hero.headline1')}<br />
+          <span className="gradient-text">{t('hero.headline2')}</span>
         </h1>
 
         <p className="max-w-lg text-lg text-muted font-normal mb-9 animate-fadeUp [animation-delay:200ms]">
-          Instant random video chat with real people from 180+ countries.
-          No boring profiles — just genuine conversations, face to face.
+          {t('hero.sub')}
         </p>
 
         {/* CTAs */}
@@ -116,24 +118,24 @@ export default function HomePage({ params: { locale } }: { params: { locale: str
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M15 10l4.55-2.27A1 1 0 0121 8.62V15.4a1 1 0 01-1.45.89L15 14M4 8a2 2 0 012-2h9a2 2 0 012 2v8a2 2 0 01-2 2H6a2 2 0 01-2-2V8z" />
             </svg>
-            Start Video Chat — Free
+            {t('hero.cta')}
           </Link>
           <Link
             href="#how"
             className="inline-flex items-center gap-2 bg-white/[0.04] border border-white/[0.08] text-white font-semibold text-[0.95rem] px-7 py-4 rounded-[14px] hover:bg-white/[0.07] transition-colors"
           >
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><circle cx="12" cy="12" r="10"/><path d="M10 8l6 4-6 4V8z" /></svg>
-            How it works
+            {t('hero.howItWorks')}
           </Link>
         </div>
 
         {/* Hero stats */}
         <div className="flex flex-wrap justify-center gap-10 animate-fadeUp [animation-delay:400ms]">
           {[
-            { value: '180+', label: 'Countries' },
-            { value: '2M+', label: 'Monthly users' },
-            { value: '100%', label: 'Free to start' },
-            { value: '<3s', label: 'Match speed' },
+            { value: '180+', label: t('stats.countries') },
+            { value: '2M+', label: t('stats.users') },
+            { value: '100%', label: t('stats.free') },
+            { value: '<3s', label: t('stats.speed') },
           ].map(({ value, label }) => (
             <div key={label} className="text-center">
               <strong className="block text-[1.6rem] font-black text-white">{value}</strong>
@@ -149,13 +151,13 @@ export default function HomePage({ params: { locale } }: { params: { locale: str
           {/* Section header */}
           <div className="text-center mb-7">
             <h2 className="text-[clamp(1.6rem,3vw,2.4rem)] font-black tracking-tight">
-              Jump In &amp; Start Meeting People
+              {t('chat.heading')}
               <span className="inline-flex items-center gap-1.5 ml-3 bg-green-400/10 border border-green-400/25 rounded-full px-3 py-1 text-xs font-semibold text-green-400 align-middle">
                 <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-dot" /> Live
               </span>
             </h2>
             <p className="text-muted text-[0.95rem] mt-2">
-              No sign-up required to try. Create a free account to unlock filters and save your matches.
+              {t('chat.sub')}
             </p>
           </div>
 
@@ -164,15 +166,15 @@ export default function HomePage({ params: { locale } }: { params: { locale: str
             <div className="flex items-center gap-3">
               <div className="w-11 h-11 rounded-[11px] bg-brand flex items-center justify-center text-lg flex-shrink-0">⚡</div>
               <div>
-                <strong className="block text-sm font-bold">Unlock Gender &amp; Country Filters</strong>
-                <span className="text-xs text-muted">Start chatting free — no sign-up required.</span>
+                <strong className="block text-sm font-bold">{t('chat.bannerTitle')}</strong>
+                <span className="text-xs text-muted">{t('chat.bannerSub')}</span>
               </div>
             </div>
             <Link
               href="#chat"
               className="bg-brand text-white text-sm font-bold px-5 py-2.5 rounded-xl hover:opacity-90 hover:-translate-y-px transition-all shadow-glow whitespace-nowrap"
             >
-              Start Chatting →
+              {t('chat.bannerCta')}
             </Link>
           </div>
 

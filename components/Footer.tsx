@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { getTranslations } from 'next-intl/server';
 
 const FOOTER_LINKS = {
   Product: [
@@ -20,8 +21,9 @@ const FOOTER_LINKS = {
   ],
 };
 
-export default function Footer({ locale }: { locale: string }) {
+export default async function Footer({ locale }: { locale: string }) {
   const prefix = locale === 'en' ? '' : `/${locale}`;
+  const t = await getTranslations({ locale, namespace: 'footer' });
 
   return (
     <footer className="relative z-10 border-t border-white/[0.07] mt-20">
@@ -37,7 +39,7 @@ export default function Footer({ locale }: { locale: string }) {
               </span>
             </Link>
             <p className="text-muted text-sm max-w-[260px] leading-relaxed">
-              The world&apos;s fastest random video chat. Meet real people, have real conversations.
+              {t('tagline')}
             </p>
           </div>
 
@@ -65,7 +67,7 @@ export default function Footer({ locale }: { locale: string }) {
         {/* Bottom row */}
         <div className="border-t border-white/[0.07] pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
           <span className="text-xs text-muted">
-            © {new Date().getFullYear()} RouletteChat. All rights reserved.
+            © {new Date().getFullYear()} RouletteChat. {t('copyright')}
           </span>
           <div className="flex gap-2">
             {['🛡️ Safe Chat', '🌐 Global', '⚡ Free'].map((b) => (
