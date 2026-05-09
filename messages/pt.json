@@ -1,0 +1,36 @@
+{
+  "nav": {
+    "reviews": "Avaliações",
+    "compare": "Comparar",
+    "tools": "Ferramentas",
+    "start": "Iniciar chat →"
+  },
+  "hero": {
+    "badge": "pessoas online agora",
+    "headline1": "Conhece alguém",
+    "headline2": "Real. Agora Mesmo.",
+    "sub": "Chat de vídeo aleatório instantâneo com pessoas reais de mais de 180 países. Sem perfis chatos — só conversas genuínas.",
+    "cta": "Iniciar videochat — Grátis",
+    "howItWorks": "Como funciona"
+  },
+  "stats": {
+    "countries": "Países",
+    "users": "Utilizadores mensais",
+    "free": "Grátis",
+    "speed": "Velocidade de conexão"
+  },
+  "chat": {
+    "heading": "Entra e começa a conhecer pessoas",
+    "sub": "Não precisas de conta para experimentar. Cria uma conta grátis para desbloquear filtros.",
+    "bannerTitle": "Desbloqueia filtros de género e país",
+    "bannerSub": "Regista-te grátis — 30 segundos. Sem cartão.",
+    "bannerCta": "Criar conta grátis →",
+    "nudge": "Estás a gostar?",
+    "nudgeLink": "Cria uma conta grátis",
+    "nudgeSuffix": "para desbloquear filtros e guardar os teus chats favoritos."
+  },
+  "footer": {
+    "tagline": "O chat de vídeo aleatório mais rápido do mundo. Pessoas reais, conversas reais.",
+    "copyright": "Todos os direitos reservados."
+  }
+}

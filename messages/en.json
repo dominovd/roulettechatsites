@@ -1,0 +1,36 @@
+{
+  "nav": {
+    "reviews": "Reviews",
+    "compare": "Compare",
+    "tools": "Tools",
+    "start": "Start Chatting →"
+  },
+  "hero": {
+    "badge": "people online now",
+    "headline1": "Meet Someone",
+    "headline2": "Real. Right Now.",
+    "sub": "Instant random video chat with real people from 180+ countries. No boring profiles — just genuine conversations, face to face.",
+    "cta": "Start Video Chat — Free",
+    "howItWorks": "How it works"
+  },
+  "stats": {
+    "countries": "Countries",
+    "users": "Monthly users",
+    "free": "Free to start",
+    "speed": "Match speed"
+  },
+  "chat": {
+    "heading": "Jump In & Start Meeting People",
+    "sub": "No sign-up required to try. Create a free account to unlock filters and save your matches.",
+    "bannerTitle": "Unlock Gender & Country Filters",
+    "bannerSub": "Sign up free — takes 30 seconds. No credit card.",
+    "bannerCta": "Create Free Account →",
+    "nudge": "Enjoying it?",
+    "nudgeLink": "Create a free account",
+    "nudgeSuffix": "to unlock filters, interests & save your favourite matches."
+  },
+  "footer": {
+    "tagline": "The world's fastest random video chat. Meet real people, have real conversations.",
+    "copyright": "All rights reserved."
+  }
+}

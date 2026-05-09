@@ -1,0 +1,5 @@
+# Cloudflare Pages environment variables
+# Copy to .dev.vars for local wrangler preview
+# Add these in CF Dashboard → Pages → Settings → Environment Variables
+
+NEXT_PUBLIC_SITE_URL=https://roulettechatsites.com
