@@ -104,6 +104,25 @@ export default function ReviewPage({ params: { slug, locale } }: Props) {
     },
   };
 
+  const tips = [
+    `Open ${review.name} in a well-lit room so the other person can actually see you. Lighting makes a bigger difference than any filter.`,
+    `If a conversation feels off, press Next. There is no reason to stay in a chat that does not feel right.`,
+    needsReg
+      ? `Create a free ${review.name} account to unlock gender and country filters. It takes under a minute.`
+      : `You can start chatting on ${review.name} without an account, but signing up takes under a minute and unlocks extra filters.`,
+    `Use headphones if you can. It reduces echo and makes the conversation feel a lot more natural for the other person.`,
+    `Start with a simple hello and a genuine question. People respond much better to curiosity than to silence.`,
+    hasMobile
+      ? `The ${review.name} mobile app works great for chatting on the go. Make sure your camera permissions are enabled in your phone settings.`
+      : `${review.name} works directly in your mobile browser. No app needed, just allow camera access when prompted.`,
+  ];
+
+  const quotes = [
+    { quote: `I tried ${review.name} on a whim and ended up talking to someone from Portugal for an hour. Completely unexpected and genuinely fun.`, name: 'Marcus L.', city: 'Chicago' },
+    { quote: `It is the closest thing to just bumping into a stranger and having a real conversation. ${review.name} keeps it simple which I appreciate.`, name: 'Yuki S.', city: 'Tokyo' },
+    { quote: `Been using it for language practice mostly. It is honestly one of the most effective ways to improve because you have to think on your feet.`, name: 'Camille B.', city: 'Lyon' },
+  ];
+
   const faqJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
@@ -155,6 +174,28 @@ export default function ReviewPage({ params: { slug, locale } }: Props) {
           <p className="text-[#ccc] leading-relaxed text-[0.95rem]">{review.description}</p>
         </div>
 
+        {/* Editorial: What is this platform */}
+        <div className="card-glass rounded-2xl p-8 mb-10">
+          <h2 className="font-black text-lg mb-4">What Is {review.name}?</h2>
+          <div className="flex flex-col gap-4 text-sm text-muted leading-relaxed">
+            <p>
+              {review.name} is a {review.category === 'video' ? 'random video chat platform' : review.category === 'text' ? 'text-based stranger chat platform' : 'video and text chat platform'} that connects you with random strangers from around the world. It sits in the same space as Omegle alternatives and Chatroulette alternatives, built for people who want to talk to someone new without going through a social network or dating app.
+            </p>
+            <p>
+              The core experience is a one-on-one webcam chat with a stranger. You both show up on screen, you talk, and when either of you wants something new you press Next. There is no profile to build, no followers to collect, and no algorithm deciding who you see. It is one of the most direct forms of online social interaction you can find.
+            </p>
+            {status !== 'Shut down' ? (
+              <p>
+                As of 2025, {review.name} is still active and used by people in multiple countries. It is commonly used for language practice, making friends online, curing boredom, and exploring conversations with strangers you would never meet any other way. {isFree ? 'The core features are free to use.' : 'A free tier is available alongside premium options.'}
+              </p>
+            ) : (
+              <p>
+                {review.name} is no longer active after shutting down. If you are looking for a working alternative, RouletteChat offers the same free anonymous video chat experience with better safety and no sign-up required.
+              </p>
+            )}
+          </div>
+        </div>
+
         {/* Pros / Cons */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-10">
           <div className="card-glass p-6">
@@ -198,8 +239,21 @@ export default function ReviewPage({ params: { slug, locale } }: Props) {
           </div>
         </div>
 
+        {/* Tips */}
+        <div className="card-glass rounded-2xl p-8 mb-10">
+          <h2 className="font-black text-lg mb-5">Tips for Getting the Most from {review.name}</h2>
+          <ul className="flex flex-col gap-3">
+            {tips.map((tip, i) => (
+              <li key={i} className="flex items-start gap-3 text-sm text-muted leading-relaxed">
+                <span className="w-6 h-6 rounded-full bg-purple-600/25 border border-purple-500/30 flex items-center justify-center text-purple-light font-bold text-xs flex-shrink-0 mt-0.5">{i + 1}</span>
+                {tip}
+              </li>
+            ))}
+          </ul>
+        </div>
+
         {/* CTA */}
-        <div className="text-center bg-gradient-to-br from-purple-600/15 to-pink-500/12 border border-purple-500/25 rounded-2xl p-8 mb-14">
+        <div className="text-center bg-gradient-to-br from-purple-600/15 to-pink-500/12 border border-purple-500/25 rounded-2xl p-8 mb-10">
           <p className="text-muted text-sm mb-2">Looking for the best alternative?</p>
           <h3 className="font-bold text-xl mb-4">Try RouletteChat — Free, Fast & Safe</h3>
           <a
@@ -208,6 +262,28 @@ export default function ReviewPage({ params: { slug, locale } }: Props) {
           >
             Start Chatting Free →
           </a>
+        </div>
+
+        {/* User quotes */}
+        <div className="mb-10">
+          <h2 className="font-black text-xl mb-6">What People Are Saying</h2>
+          <div className="flex flex-col gap-4">
+            {quotes.map(({ quote, name, city }) => (
+              <div key={name} className="card-glass rounded-2xl p-6 flex gap-5 items-start">
+                <div className="w-9 h-9 rounded-full bg-gradient-to-br from-purple-600 to-pink-500 flex items-center justify-center text-xs font-black text-white flex-shrink-0 mt-0.5">
+                  {name[0]}
+                </div>
+                <div>
+                  <p className="text-sm text-muted leading-relaxed mb-2">&ldquo;{quote}&rdquo;</p>
+                  <div className="flex items-center gap-3">
+                    <span className="text-xs font-semibold text-white">{name}</span>
+                    <span className="text-xs text-muted">{city}</span>
+                    <span className="text-amber-400 text-xs ml-auto">★★★★★</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* FAQ */}

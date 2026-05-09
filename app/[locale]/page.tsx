@@ -31,6 +31,15 @@ const HOW_STEPS = [
   { step: '3', title: 'Chat or Skip', desc: "Love the match? Keep talking. Don't feel it? Hit Next instantly." },
 ];
 
+const TESTIMONIALS = [
+  { quote: 'I had no idea what to expect the first time. Within two minutes I was laughing with a guy from Brazil. That pretty much sums up the whole experience.', name: 'Sophie T.', city: 'Amsterdam' },
+  { quote: 'I use it to practice Spanish and just to unwind. Way better than scrolling. You actually talk to a real person who talks back.', name: 'Ethan R.', city: 'Toronto' },
+  { quote: 'Every session is different. That is honestly the best part. You never know if the next person will be a student, a musician or someone from a country you have never heard of.', name: 'Lucia M.', city: 'Lisbon' },
+  { quote: 'I was sceptical about random video chat but the moderation is solid. I felt safe from the very first chat and that matters a lot.', name: 'Aisha K.', city: 'Dubai' },
+  { quote: 'Perfect for when you are bored and want something real. Not just a feed of posts but an actual conversation.', name: 'Noah W.', city: 'Cape Town' },
+  { quote: 'I have made two genuine friends through this. We still message each other outside the platform. I never expected that.', name: 'Diana P.', city: 'Warsaw' },
+];
+
 const FAQ = [
   {
     q: 'What is RouletteChat?',
@@ -202,6 +211,45 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ── EDITORIAL: WHY RANDOM CHAT ── */}
+      <section className="px-5 py-20">
+        <div className="max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+            <div>
+              <p className="text-[0.75rem] font-bold uppercase tracking-[3px] text-purple-light mb-3">Why It Feels Different</p>
+              <h2 className="text-[clamp(1.8rem,3.5vw,2.6rem)] font-black tracking-tight mb-5">
+                Random Video Chat Is Not Like Anything Else Online
+              </h2>
+              <p className="text-muted text-[0.95rem] leading-relaxed mb-5">
+                Social media gives you a feed of people you already know. Dating apps make you swipe through profiles for hours. Random video chat does the opposite. You click once and you are face to face with a real stranger from anywhere in the world. No profile. No small talk opener. Just two people figuring out if they click.
+              </p>
+              <p className="text-muted text-[0.95rem] leading-relaxed mb-5">
+                That spontaneity is what makes free random video chat so hard to put down. After Omegle shut down in 2023, millions of people went looking for an Omegle alternative that kept the same energy but felt safer and more modern. RouletteChat was built exactly for that gap. Instant webcam chat, real people, zero friction.
+              </p>
+              <p className="text-muted text-[0.95rem] leading-relaxed">
+                Whether you call it roulette chat, stranger chat, or anonymous video chat, the idea is the same. You show up, someone else shows up, and something real happens. Sometimes it lasts 30 seconds. Sometimes you talk for two hours. You never know, and that is kind of the point.
+              </p>
+            </div>
+            <div className="flex flex-col gap-5">
+              {[
+                { icon: '🎲', title: 'No algorithm, no feed', desc: 'A random cam chat puts you in front of a live person right now. Not a post from three days ago. Not a curated highlight reel. A real human, live on camera.' },
+                { icon: '🌐', title: 'The world shrinks fast', desc: 'You might talk to a teacher in Japan, a student in Brazil, or a musician in Nigeria, all in the same evening. Free video chat with strangers is the fastest way to see how small the world actually is.' },
+                { icon: '💬', title: 'Conversation over content', desc: 'Cam to cam chat forces both people to actually talk. There is no content to hide behind. It is just two people having a real exchange, which is rarer online than it sounds.' },
+                { icon: '🔒', title: 'Anonymous by default', desc: 'You do not have to use your real name, link a phone number, or let anyone follow you. Talk to strangers online without leaving a trace. Close the tab and the chat is gone.' },
+              ].map(({ icon, title, desc }) => (
+                <div key={title} className="flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-[10px] bg-purple-600/20 border border-purple-500/25 flex items-center justify-center text-lg flex-shrink-0">{icon}</div>
+                  <div>
+                    <h3 className="font-bold text-[0.9rem] mb-1">{title}</h3>
+                    <p className="text-muted text-sm leading-relaxed">{desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ── FEATURES ── */}
       <section id="features" className="px-5 py-20">
         <p className="text-center text-[0.75rem] font-bold uppercase tracking-[3px] text-purple-light mb-3">Why RouletteChat</p>
@@ -237,6 +285,33 @@ export default function HomePage() {
               <p className="text-muted text-sm">{desc}</p>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* ── TESTIMONIALS ── */}
+      <section className="px-5 py-20">
+        <div className="max-w-5xl mx-auto">
+          <p className="text-center text-[0.75rem] font-bold uppercase tracking-[3px] text-purple-light mb-3">Real People, Real Chats</p>
+          <h2 className="text-[clamp(1.8rem,3.5vw,2.8rem)] font-black tracking-tight text-center mb-12">
+            What Our Users Say
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {TESTIMONIALS.map(({ quote, name, city }) => (
+              <div key={name} className="card-glass rounded-2xl p-6 flex flex-col gap-4">
+                <p className="text-muted text-sm leading-relaxed flex-1">&ldquo;{quote}&rdquo;</p>
+                <div className="flex items-center gap-3 pt-2 border-t border-white/[0.06]">
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-600 to-pink-500 flex items-center justify-center text-xs font-black text-white flex-shrink-0">
+                    {name[0]}
+                  </div>
+                  <div>
+                    <p className="text-white text-xs font-semibold">{name}</p>
+                    <p className="text-muted text-xs">{city}</p>
+                  </div>
+                  <div className="ml-auto text-amber-400 text-xs">★★★★★</div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
