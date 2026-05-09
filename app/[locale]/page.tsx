@@ -25,66 +25,55 @@ export async function generateMetadata({
   };
 }
 
-const FEATURES = [
-  { icon: '⚡', title: 'Instant Matching', desc: 'Connected to a real person in under 3 seconds. No waiting rooms, no loading screens.' },
-  { icon: '🌍', title: '180+ Countries', desc: 'Chat with locals or explore the world. Filter by country or go totally random.' },
-  { icon: '🎯', title: 'Smart Filters', desc: 'Filter by gender and location to find conversations that matter to you.' },
-  { icon: '🛡️', title: 'Safe & Moderated', desc: 'AI-powered moderation runs 24/7. Report and skip any user instantly.' },
-  { icon: '📱', title: 'Works on Any Device', desc: 'Full HD video chat right in your browser — desktop, tablet, or mobile.' },
-  { icon: '🎲', title: 'True Randomness', desc: 'Every next chat is a surprise. Press Next and the world opens up again.' },
-];
-
-const STATS = [
-  { value: '2M+', label: 'Monthly active users' },
-  { value: '180+', label: 'Countries connected' },
-  { value: '50M+', label: 'Chats completed' },
-  { value: '<3s', label: 'Average match time' },
-];
-
-const HOW_STEPS = [
-  { step: '1', title: 'Click Start', desc: 'Hit "Start Video Chat" and allow camera access. Ready in one tap.' },
-  { step: '2', title: 'Get Matched', desc: 'Our engine pairs you with a real person from anywhere in the world.' },
-  { step: '3', title: 'Chat or Skip', desc: "Love the match? Keep talking. Don't feel it? Hit Next instantly." },
-];
-
-const TESTIMONIALS = [
-  { quote: 'I had no idea what to expect the first time. Within two minutes I was laughing with a guy from Brazil. That pretty much sums up the whole experience.', name: 'Sophie T.', city: 'Amsterdam' },
-  { quote: 'I use it to practice Spanish and just to unwind. Way better than scrolling. You actually talk to a real person who talks back.', name: 'Ethan R.', city: 'Toronto' },
-  { quote: 'Every session is different. That is honestly the best part. You never know if the next person will be a student, a musician or someone from a country you have never heard of.', name: 'Lucia M.', city: 'Lisbon' },
-  { quote: 'I was sceptical about random video chat but the moderation is solid. I felt safe from the very first chat and that matters a lot.', name: 'Aisha K.', city: 'Dubai' },
-  { quote: 'Perfect for when you are bored and want something real. Not just a feed of posts but an actual conversation.', name: 'Noah W.', city: 'Cape Town' },
-  { quote: 'I have made two genuine friends through this. We still message each other outside the platform. I never expected that.', name: 'Diana P.', city: 'Warsaw' },
-];
-
-const FAQ = [
-  {
-    q: 'What is RouletteChat?',
-    a: 'RouletteChat is a free random video chat platform that instantly connects you with real people from over 180 countries. No profiles, no swiping — just genuine face-to-face conversations.',
-  },
-  {
-    q: 'Is RouletteChat completely free?',
-    a: 'Yes. You can start video chatting right away at no cost. No credit card needed, no hidden fees. Creating an account unlocks extra features like gender and country filters.',
-  },
-  {
-    q: 'Do I need to sign up to use RouletteChat?',
-    a: 'No registration is required to start chatting. Simply open the site, click "Start Video Chat", and you are connected within seconds.',
-  },
-  {
-    q: 'Is RouletteChat safe?',
-    a: 'Safety is our top priority. The platform uses AI-powered moderation that runs 24/7 to detect and remove inappropriate content. You can also skip or report any user instantly with one click.',
-  },
-  {
-    q: 'Which devices does RouletteChat work on?',
-    a: 'RouletteChat works entirely in your browser — no app download required. It is fully compatible with desktop, tablet, and mobile devices on Chrome, Safari, Firefox, and Edge.',
-  },
-  {
-    q: 'Can I filter chats by gender or country?',
-    a: 'Yes. Gender and country filters are available to registered users. Sign up for free to unlock these options and find conversations that match your preferences.',
-  },
-];
-
 export default async function HomePage({ params: { locale } }: { params: { locale: string } }) {
   const t = await getTranslations({ locale });
+
+  const FEATURES = [
+    { icon: '⚡', title: t('features.f1title'), desc: t('features.f1desc') },
+    { icon: '🌍', title: t('features.f2title'), desc: t('features.f2desc') },
+    { icon: '🎯', title: t('features.f3title'), desc: t('features.f3desc') },
+    { icon: '🛡️', title: t('features.f4title'), desc: t('features.f4desc') },
+    { icon: '📱', title: t('features.f5title'), desc: t('features.f5desc') },
+    { icon: '🎲', title: t('features.f6title'), desc: t('features.f6desc') },
+  ];
+
+  const STATS = [
+    { value: '2M+', label: t('statsSection.s1label') },
+    { value: '180+', label: t('statsSection.s2label') },
+    { value: '50M+', label: t('statsSection.s3label') },
+    { value: '<3s', label: t('statsSection.s4label') },
+  ];
+
+  const HOW_STEPS = [
+    { step: '1', title: t('how.s1title'), desc: t('how.s1desc') },
+    { step: '2', title: t('how.s2title'), desc: t('how.s2desc') },
+    { step: '3', title: t('how.s3title'), desc: t('how.s3desc') },
+  ];
+
+  const WHY_ITEMS = [
+    { icon: '🎲', title: t('why.i1title'), desc: t('why.i1desc') },
+    { icon: '🌐', title: t('why.i2title'), desc: t('why.i2desc') },
+    { icon: '💬', title: t('why.i3title'), desc: t('why.i3desc') },
+    { icon: '🔒', title: t('why.i4title'), desc: t('why.i4desc') },
+  ];
+
+  const TESTIMONIALS = [
+    { quote: t('testimonials.t1quote'), name: 'Sophie T.', city: 'Amsterdam' },
+    { quote: t('testimonials.t2quote'), name: 'Ethan R.', city: 'Toronto' },
+    { quote: t('testimonials.t3quote'), name: 'Lucia M.', city: 'Lisbon' },
+    { quote: t('testimonials.t4quote'), name: 'Aisha K.', city: 'Dubai' },
+    { quote: t('testimonials.t5quote'), name: 'Noah W.', city: 'Cape Town' },
+    { quote: t('testimonials.t6quote'), name: 'Diana P.', city: 'Warsaw' },
+  ];
+
+  const FAQ = [
+    { q: t('faq.q1'), a: t('faq.a1') },
+    { q: t('faq.q2'), a: t('faq.a2') },
+    { q: t('faq.q3'), a: t('faq.a3') },
+    { q: t('faq.q4'), a: t('faq.a4') },
+    { q: t('faq.q5'), a: t('faq.a5') },
+    { q: t('faq.q6'), a: t('faq.a6') },
+  ];
 
   return (
     <>
@@ -180,7 +169,7 @@ export default async function HomePage({ params: { locale } }: { params: { local
 
           {/* Filter chips */}
           <div className="flex flex-wrap gap-2 mb-4">
-            {['All genders', 'Worldwide', 'Safe & moderated'].map((chip) => (
+            {[t('chat.chip1'), t('chat.chip2'), t('chat.chip3')].map((chip) => (
               <span
                 key={chip}
                 className="inline-flex items-center gap-1.5 bg-white/[0.04] border border-white/[0.07] rounded-full px-3.5 py-1.5 text-xs font-medium text-muted"
@@ -204,14 +193,14 @@ export default async function HomePage({ params: { locale } }: { params: { local
 
           {/* Post-iframe nudge */}
           <p className="text-center text-sm text-muted mt-5">
-            💬 Want filters &amp; more features?{' '}
+            💬 {t('chat.nudgePre')}{' '}
             <Link
               href="#chat"
               className="text-purple-light font-semibold hover:text-white transition-colors"
             >
-              Start chatting now
+              {t('chat.nudgeStart')}
             </Link>{' '}
-            — no sign-up required.
+            {t('chat.nudgePost')}
           </p>
         </div>
       </section>
@@ -233,27 +222,22 @@ export default async function HomePage({ params: { locale } }: { params: { local
         <div className="max-w-5xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
             <div>
-              <p className="text-[0.75rem] font-bold uppercase tracking-[3px] text-purple-light mb-3">Why It Feels Different</p>
+              <p className="text-[0.75rem] font-bold uppercase tracking-[3px] text-purple-light mb-3">{t('why.label')}</p>
               <h2 className="text-[clamp(1.8rem,3.5vw,2.6rem)] font-black tracking-tight mb-5">
-                Random Video Chat Is Not Like Anything Else Online
+                {t('why.heading')}
               </h2>
               <p className="text-muted text-[0.95rem] leading-relaxed mb-5">
-                Social media gives you a feed of people you already know. Dating apps make you swipe through profiles for hours. Random video chat does the opposite. You click once and you are face to face with a real stranger from anywhere in the world. No profile. No small talk opener. Just two people figuring out if they click.
+                {t('why.p1')}
               </p>
               <p className="text-muted text-[0.95rem] leading-relaxed mb-5">
-                That spontaneity is what makes free random video chat so hard to put down. After Omegle shut down in 2023, millions of people went looking for an Omegle alternative that kept the same energy but felt safer and more modern. RouletteChat was built exactly for that gap. Instant webcam chat, real people, zero friction.
+                {t('why.p2')}
               </p>
               <p className="text-muted text-[0.95rem] leading-relaxed">
-                Whether you call it roulette chat, stranger chat, or anonymous video chat, the idea is the same. You show up, someone else shows up, and something real happens. Sometimes it lasts 30 seconds. Sometimes you talk for two hours. You never know, and that is kind of the point.
+                {t('why.p3')}
               </p>
             </div>
             <div className="flex flex-col gap-5">
-              {[
-                { icon: '🎲', title: 'No algorithm, no feed', desc: 'A random cam chat puts you in front of a live person right now. Not a post from three days ago. Not a curated highlight reel. A real human, live on camera.' },
-                { icon: '🌐', title: 'The world shrinks fast', desc: 'You might talk to a teacher in Japan, a student in Brazil, or a musician in Nigeria, all in the same evening. Free video chat with strangers is the fastest way to see how small the world actually is.' },
-                { icon: '💬', title: 'Conversation over content', desc: 'Cam to cam chat forces both people to actually talk. There is no content to hide behind. It is just two people having a real exchange, which is rarer online than it sounds.' },
-                { icon: '🔒', title: 'Anonymous by default', desc: 'You do not have to use your real name, link a phone number, or let anyone follow you. Talk to strangers online without leaving a trace. Close the tab and the chat is gone.' },
-              ].map(({ icon, title, desc }) => (
+              {WHY_ITEMS.map(({ icon, title, desc }) => (
                 <div key={title} className="flex items-start gap-4">
                   <div className="w-10 h-10 rounded-[10px] bg-purple-600/20 border border-purple-500/25 flex items-center justify-center text-lg flex-shrink-0">{icon}</div>
                   <div>
@@ -269,10 +253,10 @@ export default async function HomePage({ params: { locale } }: { params: { local
 
       {/* ── FEATURES ── */}
       <section id="features" className="px-5 py-20">
-        <p className="text-center text-[0.75rem] font-bold uppercase tracking-[3px] text-purple-light mb-3">Why RouletteChat</p>
-        <h2 className="text-[clamp(1.8rem,3.5vw,2.8rem)] font-black tracking-tight text-center mb-3">Built for Real Connections</h2>
+        <p className="text-center text-[0.75rem] font-bold uppercase tracking-[3px] text-purple-light mb-3">{t('features.label')}</p>
+        <h2 className="text-[clamp(1.8rem,3.5vw,2.8rem)] font-black tracking-tight text-center mb-3">{t('features.heading')}</h2>
         <p className="text-center text-muted text-[0.95rem] max-w-md mx-auto mb-14">
-          Everything you need to meet interesting people — nothing you don&apos;t.
+          {t('features.sub')}
         </p>
         <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {FEATURES.map((f) => (
@@ -287,10 +271,10 @@ export default async function HomePage({ params: { locale } }: { params: { local
 
       {/* ── HOW IT WORKS ── */}
       <section id="how" className="px-5 py-20 scroll-mt-20">
-        <p className="text-center text-[0.75rem] font-bold uppercase tracking-[3px] text-purple-light mb-3">Simple as 1–2–3</p>
-        <h2 className="text-[clamp(1.8rem,3.5vw,2.8rem)] font-black tracking-tight text-center mb-3">How RouletteChat Works</h2>
+        <p className="text-center text-[0.75rem] font-bold uppercase tracking-[3px] text-purple-light mb-3">{t('how.label')}</p>
+        <h2 className="text-[clamp(1.8rem,3.5vw,2.8rem)] font-black tracking-tight text-center mb-3">{t('how.heading')}</h2>
         <p className="text-center text-muted text-[0.95rem] max-w-md mx-auto mb-14">
-          Start chatting in seconds — no sign-up, no setup, no nonsense.
+          {t('how.sub')}
         </p>
         <div className="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
           {HOW_STEPS.map(({ step, title, desc }) => (
@@ -308,9 +292,9 @@ export default async function HomePage({ params: { locale } }: { params: { local
       {/* ── TESTIMONIALS ── */}
       <section className="px-5 py-20">
         <div className="max-w-5xl mx-auto">
-          <p className="text-center text-[0.75rem] font-bold uppercase tracking-[3px] text-purple-light mb-3">Real People, Real Chats</p>
+          <p className="text-center text-[0.75rem] font-bold uppercase tracking-[3px] text-purple-light mb-3">{t('testimonials.label')}</p>
           <h2 className="text-[clamp(1.8rem,3.5vw,2.8rem)] font-black tracking-tight text-center mb-12">
-            What Our Users Say
+            {t('testimonials.heading')}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {TESTIMONIALS.map(({ quote, name, city }) => (
@@ -335,9 +319,9 @@ export default async function HomePage({ params: { locale } }: { params: { local
       {/* ── FAQ ── */}
       <section className="px-5 py-20">
         <div className="max-w-3xl mx-auto">
-          <p className="text-center text-[0.75rem] font-bold uppercase tracking-[3px] text-purple-light mb-3">FAQ</p>
+          <p className="text-center text-[0.75rem] font-bold uppercase tracking-[3px] text-purple-light mb-3">{t('faq.label')}</p>
           <h2 className="text-[clamp(1.8rem,3.5vw,2.8rem)] font-black tracking-tight text-center mb-12">
-            Frequently Asked Questions
+            {t('faq.heading')}
           </h2>
           <div className="flex flex-col gap-3">
             {FAQ.map(({ q, a }) => (
@@ -361,19 +345,19 @@ export default async function HomePage({ params: { locale } }: { params: { local
         <div className="max-w-2xl mx-auto text-center bg-gradient-to-br from-purple-600/15 to-pink-500/12 border border-purple-500/25 rounded-3xl p-14 relative overflow-hidden">
           <div className="absolute -top-24 -right-20 w-64 h-64 bg-purple-600/20 rounded-full blur-3xl pointer-events-none" />
           <h2 className="text-[clamp(1.8rem,3vw,2.5rem)] font-black tracking-tight mb-3">
-            Ready to Meet Your<br />
-            <span className="gradient-text">Next Connection?</span>
+            {t('cta.heading1')}<br />
+            <span className="gradient-text">{t('cta.heading2')}</span>
           </h2>
           <p className="text-muted text-[0.95rem] mb-8">
-            Jump into the chat — no sign-up, no credit card, instant connection.
+            {t('cta.sub')}
           </p>
           <Link
             href="#chat"
             className="inline-flex items-center gap-2 bg-brand text-white font-bold text-base px-8 py-4 rounded-[14px] shadow-glow hover:shadow-glow-lg hover:-translate-y-0.5 transition-all"
           >
-            Start Chatting Free →
+            {t('cta.button')}
           </Link>
-          <p className="text-xs text-muted mt-4">100% free. No credit card. Start in seconds.</p>
+          <p className="text-xs text-muted mt-4">{t('cta.note')}</p>
         </div>
       </section>
 

@@ -27,10 +27,98 @@
     "bannerCta": "Utwórz Bezpłatne Konto →",
     "nudge": "Podoba ci się?",
     "nudgeLink": "Utwórz bezpłatne konto",
-    "nudgeSuffix": "aby odblokować filtry i zapisać ulubione dopasowania."
+    "nudgeSuffix": "aby odblokować filtry i zapisać ulubione dopasowania.",
+    "chip1": "Wszystkie płcie",
+    "chip2": "Cały świat",
+    "chip3": "Bezpieczny i moderowany",
+    "nudgePre": "Chcesz filtry i więcej funkcji?",
+    "nudgeStart": "Zacznij rozmawiać teraz",
+    "nudgePost": "— bez rejestracji."
+  },
+  "statsSection": {
+    "s1label": "Miesięcznie aktywni użytkownicy",
+    "s2label": "Połączone kraje",
+    "s3label": "Ukończone czaty",
+    "s4label": "Średni czas łączenia"
+  },
+  "why": {
+    "label": "Dlaczego To Czuć Inaczej",
+    "heading": "Losowy Czat Wideo Nie Przypomina Niczego Innego w Internecie",
+    "p1": "Portale społecznościowe pokazują Ci feed osób, które już znasz. Aplikacje randkowe każą Ci przeglądać profile godzinami. Losowy czat wideo robi coś odwrotnego. Klikasz raz i jesteś twarzą w twarz z prawdziwym obcym z dowolnego miejsca na świecie. Żadnego profilu. Żadnego wymuszonego wstępu. Tylko dwie osoby odkrywające, czy do siebie pasują.",
+    "p2": "Ta spontaniczność sprawia, że darmowy losowy czat wideo jest tak trudny do odłożenia. Po zamknięciu Omegle w 2023 roku miliony osób szukały alternatywy, która zachowałaby tę samą energię, ale byłaby bezpieczniejsza i nowocześniejsza. RouletteChat został stworzony właśnie po to. Natychmiastowy czat przez kamerę, prawdziwi ludzie, zero tarcia.",
+    "p3": "Czy nazwiesz to czatem ruletka, czatem z nieznajomymi czy anonimowym czatem wideo — idea jest ta sama. Ty się pojawiasz, ktoś inny się pojawia i dzieje się coś prawdziwego. Czasem trwa 30 sekund. Czasem rozmawiasz dwie godziny. Nigdy nie wiesz i to jest właśnie sens.",
+    "i1title": "Żadnego algorytmu, żadnego feeda",
+    "i1desc": "Losowy czat kamerowy stawia Cię przed żywą osobą właśnie teraz. Nie post sprzed trzech dni. Nie skompilowany skrót. Prawdziwy człowiek, na żywo przed kamerą.",
+    "i2title": "Świat szybko się kurczy",
+    "i2desc": "Możesz porozmawiać z nauczycielem w Japonii, studentem w Brazylii lub muzykiem w Nigerii — wszystko tego samego wieczoru. Darmowy czat wideo z nieznajomymi to najszybszy sposób, żeby zobaczyć, jak mały jest świat.",
+    "i3title": "Rozmowa ponad treścią",
+    "i3desc": "Czat kamera do kamery zmusza obie osoby do prawdziwej rozmowy. Nie ma żadnej treści, za którą można by się schować. To tylko dwie osoby prowadzące prawdziwą wymianę, co w internecie jest rzadsze niż się wydaje.",
+    "i4title": "Anonimowy domyślnie",
+    "i4desc": "Nie musisz używać prawdziwego imienia, podawać numeru telefonu ani pozwalać nikomu Cię obserwować. Rozmawiaj z nieznajomymi online bez pozostawiania śladu. Zamknij kartę i czat znika."
+  },
+  "features": {
+    "label": "Dlaczego RouletteChat",
+    "heading": "Stworzony dla Prawdziwych Połączeń",
+    "sub": "Wszystko czego potrzebujesz, żeby poznawać ciekawych ludzi — nic więcej.",
+    "f1title": "Natychmiastowe Dopasowanie",
+    "f1desc": "Połączony z prawdziwą osobą w mniej niż 3 sekundy. Żadnych poczekalni, żadnych ekranów ładowania.",
+    "f2title": "180+ Krajów",
+    "f2desc": "Rozmawiaj z miejscowymi lub odkrywaj świat. Filtruj według kraju lub idź całkowicie losowo.",
+    "f3title": "Inteligentne Filtry",
+    "f3desc": "Filtruj według płci i lokalizacji, aby znajdować rozmowy, na których Ci zależy.",
+    "f4title": "Bezpieczny i Moderowany",
+    "f4desc": "Moderacja oparta na AI działa 24/7. Zgłaszaj i pomijaj dowolnego użytkownika natychmiast.",
+    "f5title": "Działa na Każdym Urządzeniu",
+    "f5desc": "Czat wideo Full HD bezpośrednio w przeglądarce — desktop, tablet lub mobile.",
+    "f6title": "Prawdziwa Losowość",
+    "f6desc": "Każdy następny czat to niespodzianka. Naciśnij Dalej i świat otwiera się ponownie."
+  },
+  "how": {
+    "label": "Proste jak 1–2–3",
+    "heading": "Jak Działa RouletteChat",
+    "sub": "Zacznij rozmawiać w sekundy — bez rejestracji, bez konfiguracji, bez komplikacji.",
+    "s1title": "Kliknij Start",
+    "s1desc": "Naciśnij \"Zacznij Czat Wideo\" i zezwól na dostęp do kamery. Gotowy w jednym kliknięciu.",
+    "s2title": "Zostań Dopasowany",
+    "s2desc": "Nasz system łączy Cię z prawdziwą osobą z dowolnego miejsca na świecie.",
+    "s3title": "Rozmawiaj lub Pomiń",
+    "s3desc": "Podoba Ci się ta osoba? Rozmawiaj dalej. Nie czujesz tego? Naciśnij Dalej natychmiast."
+  },
+  "testimonials": {
+    "label": "Prawdziwi Ludzie, Prawdziwe Czaty",
+    "heading": "Co Mówią Nasi Użytkownicy",
+    "t1quote": "Nie miałam pojęcia, czego się spodziewać za pierwszym razem. W ciągu dwóch minut śmiałam się z chłopakiem z Brazylii. To dosyć dobrze podsumowuje całe doświadczenie.",
+    "t2quote": "Używam go, żeby ćwiczyć hiszpański i po prostu się odprężyć. Dużo lepsze niż scrollowanie. Naprawdę rozmawiasz z prawdziwą osobą, która odpowiada.",
+    "t3quote": "Każda sesja jest inna. To uczciwie najlepsza część. Nigdy nie wiesz, czy następna osoba będzie studentem, muzykiem czy kimś z kraju, o którym nigdy nie słyszałeś.",
+    "t4quote": "Byłam sceptyczna wobec losowego czatu wideo, ale moderacja jest solidna. Czułam się bezpiecznie od pierwszego czatu i to bardzo dużo znaczy.",
+    "t5quote": "Idealne, kiedy się nudzisz i chcesz czegoś prawdziwego. Nie tylko feed postów, ale prawdziwa rozmowa.",
+    "t6quote": "Przez to nawiązałam dwie prawdziwe przyjaźnie. Nadal piszemy do siebie poza platformą. Nigdy tego nie oczekiwałam."
+  },
+  "faq": {
+    "label": "FAQ",
+    "heading": "Często Zadawane Pytania",
+    "q1": "Czym jest RouletteChat?",
+    "a1": "RouletteChat to darmowa platforma losowego czatu wideo, która natychmiast łączy Cię z prawdziwymi ludźmi z ponad 180 krajów. Żadnych profili, żadnego przesuwania — tylko prawdziwe rozmowy twarzą w twarz.",
+    "q2": "Czy RouletteChat jest całkowicie darmowy?",
+    "a2": "Tak. Możesz od razu zacząć czat wideo bez żadnych kosztów. Żadnej karty kredytowej, żadnych ukrytych opłat. Utworzenie konta odblokowuje dodatkowe funkcje, takie jak filtry płci i kraju.",
+    "q3": "Czy muszę się rejestrować, aby używać RouletteChat?",
+    "a3": "Do rozpoczęcia rozmowy nie jest wymagana żadna rejestracja. Wystarczy otworzyć stronę, kliknąć \"Zacznij Czat Wideo\" i zostaniesz połączony w ciągu kilku sekund.",
+    "q4": "Czy RouletteChat jest bezpieczny?",
+    "a4": "Bezpieczeństwo to nasz najwyższy priorytet. Platforma korzysta z moderacji opartej na AI, która działa 24/7, aby wykrywać i usuwać nieodpowiednie treści. Możesz też pominąć lub zgłosić dowolnego użytkownika natychmiast jednym kliknięciem.",
+    "q5": "Na jakich urządzeniach działa RouletteChat?",
+    "a5": "RouletteChat działa całkowicie w przeglądarce — nie wymaga pobierania żadnej aplikacji. Jest w pełni kompatybilny z komputerami stacjonarnymi, tabletami i urządzeniami mobilnymi w Chrome, Safari, Firefox i Edge.",
+    "q6": "Czy mogę filtrować czaty według płci lub kraju?",
+    "a6": "Tak. Filtry płci i kraju są dostępne dla zarejestrowanych użytkowników. Zarejestruj się bezpłatnie, aby odblokować te opcje i znaleźć rozmowy odpowiadające Twoim preferencjom."
+  },
+  "cta": {
+    "heading1": "Gotowy na Swoje",
+    "heading2": "Następne Połączenie?",
+    "sub": "Dołącz do czatu — bez rejestracji, bez karty kredytowej, natychmiastowe połączenie.",
+    "button": "Zacznij Rozmawiać Bezpłatnie →",
+    "note": "100% bezpłatnie. Bez karty kredytowej. Zacznij w sekundy."
   },
   "footer": {
-    "tagline": "Najszybszy losowy czat wideo na świecie. Poznaj prawdziwych ludzi, prowadź prawdziwe rozmowy.",
+    "tagline": "Najszybszy losowy czat wideo na świecie. Poznawaj prawdziwych ludzi, prowadź prawdziwe rozmowy.",
     "copyright": "Wszelkie prawa zastrzeżone."
   }
 }
