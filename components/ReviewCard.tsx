@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { getTranslations } from 'next-intl/server';
 import { Review } from '@/lib/reviews';
 import { cn } from '@/lib/cn';
 
@@ -23,8 +24,9 @@ const CATEGORY_COLORS: Record<string, string> = {
   hybrid: 'bg-pink-500/10  text-pink-300  border-pink-500/20',
 };
 
-export default function ReviewCard({ review, locale }: { review: Review; locale: string }) {
+export default async function ReviewCard({ review, locale }: { review: Review; locale: string }) {
   const prefix = locale === 'en' ? '' : `/${locale}`;
+  const t = await getTranslations({ locale });
 
   return (
     <Link
@@ -45,7 +47,7 @@ export default function ReviewCard({ review, locale }: { review: Review; locale:
       {/* Rating row */}
       <div className="flex items-center gap-2 mb-1">
         <StarRating rating={review.rating} />
-        <span className="text-xs text-muted">{review.ratingCount.toLocaleString()} reviews</span>
+        <span className="text-xs text-muted">{review.ratingCount.toLocaleString()} {t('card.reviews')}</span>
       </div>
 
       {/* Tagline */}
@@ -68,9 +70,9 @@ export default function ReviewCard({ review, locale }: { review: Review; locale:
 
       {/* Stats row */}
       <div className="flex items-center justify-between text-xs text-muted border-t border-white/[0.06] pt-3">
-        <span>👥 {review.users} users</span>
-        <span>📅 Since {review.founded}</span>
-        <span className="text-purple-light font-semibold">Read review →</span>
+        <span>👥 {review.users} {t('card.users')}</span>
+        <span>📅 {t('card.since', { year: review.founded })}</span>
+        <span className="text-purple-light font-semibold">{t('card.readReview')}</span>
       </div>
     </Link>
   );

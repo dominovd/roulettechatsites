@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { getReview, getRelatedReviews, reviews } from '@/lib/reviews';
 import ReviewCard from '@/components/ReviewCard';
 import { locales } from '@/i18n';
+import { getTranslations } from 'next-intl/server';
 
 const BASE = 'https://roulettechatsites.com';
 const lp = (locale: string) => (locale === 'en' ? '' : `/${locale}`);
@@ -49,11 +50,12 @@ function StarBar({ rating }: { rating: number }) {
   );
 }
 
-export default function ReviewPage({ params: { slug, locale } }: Props) {
+export default async function ReviewPage({ params: { slug, locale } }: Props) {
   const review = getReview(slug);
   if (!review) notFound();
   const related = getRelatedReviews(slug, 3);
   const prefix = locale === 'en' ? '' : `/${locale}`;
+  const t = await getTranslations({ locale });
 
   const isFree = review.features.find(f => f.label === 'Free')?.value === true;
   const needsReg = review.features.find(f => f.label === 'Registration')?.value === true;
@@ -62,40 +64,46 @@ export default function ReviewPage({ params: { slug, locale } }: Props) {
   const hasCountry = review.features.find(f => f.label === 'Country filter')?.value === true;
   const status = review.features.find(f => f.label === 'Status')?.value as string;
 
+  const name = review.name;
+
   const faq = [
     {
-      q: `Is ${review.name} free to use?`,
+      q: t('reviewSlug.faqQ1', { name }),
       a: isFree
-        ? `Yes, ${review.name} is free to use. You can start chatting without paying.`
-        : `${review.name} offers a free tier but some features require a paid subscription.`,
+        ? t('reviewSlug.faqA1Free', { name })
+        : t('reviewSlug.faqA1Paid', { name }),
     },
     {
-      q: `Do you need to register to use ${review.name}?`,
+      q: t('reviewSlug.faqQ2', { name }),
       a: needsReg
-        ? `Yes, ${review.name} requires you to create an account before you can start chatting.`
-        : `No, ${review.name} does not require registration. You can start chatting instantly without an account.`,
+        ? t('reviewSlug.faqA2Reg', { name })
+        : t('reviewSlug.faqA2NoReg', { name }),
     },
     {
-      q: `Does ${review.name} have a mobile app?`,
+      q: t('reviewSlug.faqQ3', { name }),
       a: hasMobile
-        ? `Yes, ${review.name} has a dedicated mobile app available for iOS and Android.`
-        : `${review.name} does not have a standalone mobile app, but it works in mobile browsers.`,
+        ? t('reviewSlug.faqA3Mobile', { name })
+        : t('reviewSlug.faqA3NoMobile', { name }),
     },
     {
-      q: `Does ${review.name} support gender or country filters?`,
-      a: hasGender || hasCountry
-        ? `Yes. ${review.name} supports ${[hasGender && 'gender filter', hasCountry && 'country filter'].filter(Boolean).join(' and ')}.`
-        : `${review.name} does not currently offer gender or country filters.`,
+      q: t('reviewSlug.faqQ4', { name }),
+      a: hasGender && hasCountry
+        ? t('reviewSlug.faqA4Both', { name })
+        : hasGender
+        ? t('reviewSlug.faqA4GenderOnly', { name })
+        : hasCountry
+        ? t('reviewSlug.faqA4CountryOnly', { name })
+        : t('reviewSlug.faqA4None', { name }),
     },
     {
-      q: `What is the best alternative to ${review.name}?`,
-      a: `RouletteChat is one of the top alternatives — it's free, requires no sign-up, and connects you with people from 180+ countries instantly.`,
+      q: t('reviewSlug.faqQ5', { name }),
+      a: t('reviewSlug.faqA5'),
     },
     {
-      q: `Is ${review.name} still active in 2026?`,
+      q: t('reviewSlug.faqQ6', { name }),
       a: status === 'Shut down'
-        ? `No, ${review.name} has been shut down and is no longer available. Try RouletteChat as a free alternative.`
-        : `Yes, ${review.name} is still active and available in 2026.`,
+        ? t('reviewSlug.faqA6Shutdown', { name })
+        : t('reviewSlug.faqA6Active', { name }),
     },
   ];
 
@@ -118,23 +126,29 @@ export default function ReviewPage({ params: { slug, locale } }: Props) {
   };
 
   const tips = [
-    `Open ${review.name} in a well-lit room so the other person can actually see you. Lighting makes a bigger difference than any filter.`,
-    `If a conversation feels off, press Next. There is no reason to stay in a chat that does not feel right.`,
+    t('reviewSlug.tip1', { name }),
+    t('reviewSlug.tip2'),
     needsReg
-      ? `Create a free ${review.name} account to unlock gender and country filters. It takes under a minute.`
-      : `You can start chatting on ${review.name} without an account, but signing up takes under a minute and unlocks extra filters.`,
-    `Use headphones if you can. It reduces echo and makes the conversation feel a lot more natural for the other person.`,
-    `Start with a simple hello and a genuine question. People respond much better to curiosity than to silence.`,
+      ? t('reviewSlug.tip3Reg', { name })
+      : t('reviewSlug.tip3NoReg', { name }),
+    t('reviewSlug.tip4'),
+    t('reviewSlug.tip5'),
     hasMobile
-      ? `The ${review.name} mobile app works great for chatting on the go. Make sure your camera permissions are enabled in your phone settings.`
-      : `${review.name} works directly in your mobile browser. No app needed, just allow camera access when prompted.`,
+      ? t('reviewSlug.tip6Mobile', { name })
+      : t('reviewSlug.tip6NoMobile', { name }),
   ];
 
   const quotes = [
-    { quote: `I tried ${review.name} on a whim and ended up talking to someone from Portugal for an hour. Completely unexpected and genuinely fun.`, name: 'Marcus L.', city: 'Chicago' },
-    { quote: `It is the closest thing to just bumping into a stranger and having a real conversation. ${review.name} keeps it simple which I appreciate.`, name: 'Yuki S.', city: 'Tokyo' },
-    { quote: `Been using it for language practice mostly. It is honestly one of the most effective ways to improve because you have to think on your feet.`, name: 'Camille B.', city: 'Lyon' },
+    { quote: t('reviewSlug.q1', { name }), author: t('reviewSlug.q1name'), city: t('reviewSlug.q1city') },
+    { quote: t('reviewSlug.q2', { name }), author: t('reviewSlug.q2name'), city: t('reviewSlug.q2city') },
+    { quote: t('reviewSlug.q3'), author: t('reviewSlug.q3name'), city: t('reviewSlug.q3city') },
   ];
+
+  const categoryKey = review.category === 'video'
+    ? 'reviewSlug.whatIsCategoryVideo'
+    : review.category === 'text'
+    ? 'reviewSlug.whatIsCategoryText'
+    : 'reviewSlug.whatIsCategoryHybrid';
 
   const faqJsonLd = {
     '@context': 'https://schema.org',
@@ -151,7 +165,7 @@ export default function ReviewPage({ params: { slug, locale } }: Props) {
       <div className="max-w-3xl mx-auto">
         {/* Breadcrumb */}
         <nav className="flex items-center gap-2 text-xs text-muted mb-8">
-          <Link href={`${prefix}/reviews`} className="hover:text-white transition-colors">Reviews</Link>
+          <Link href={`${prefix}/reviews`} className="hover:text-white transition-colors">{t('reviewSlug.breadcrumbReviews')}</Link>
           <span>/</span>
           <span className="text-white">{review.name}</span>
         </nav>
@@ -165,16 +179,16 @@ export default function ReviewPage({ params: { slug, locale } }: Props) {
             </div>
             <div className="bg-white/[0.04] border border-white/[0.07] rounded-2xl px-6 py-4 text-center flex-shrink-0">
               <StarBar rating={review.rating} />
-              <p className="text-xs text-muted mt-1">{review.ratingCount.toLocaleString()} user reviews</p>
+              <p className="text-xs text-muted mt-1">{review.ratingCount.toLocaleString()} {t('reviewSlug.userReviews')}</p>
             </div>
           </div>
 
           {/* Key facts row */}
           <div className="grid grid-cols-3 gap-3 mb-6">
             {[
-              { label: 'Users', value: review.users },
-              { label: 'Founded', value: String(review.founded) },
-              { label: 'Status', value: review.features.find(f => f.label === 'Status')?.value as string },
+              { label: t('reviewSlug.factUsers'), value: review.users },
+              { label: t('reviewSlug.factFounded'), value: String(review.founded) },
+              { label: t('reviewSlug.factStatus'), value: review.features.find(f => f.label === 'Status')?.value as string },
             ].map(({ label, value }) => (
               <div key={label} className="card-glass p-4 text-center">
                 <strong className="block text-base font-bold text-white">{value}</strong>
@@ -189,22 +203,14 @@ export default function ReviewPage({ params: { slug, locale } }: Props) {
 
         {/* Editorial: What is this platform */}
         <div className="card-glass rounded-2xl p-8 mb-10">
-          <h2 className="font-black text-lg mb-4">What Is {review.name}?</h2>
+          <h2 className="font-black text-lg mb-4">{t('reviewSlug.whatIsHeading', { name })}</h2>
           <div className="flex flex-col gap-4 text-sm text-muted leading-relaxed">
-            <p>
-              {review.name} is a {review.category === 'video' ? 'random video chat platform' : review.category === 'text' ? 'text-based stranger chat platform' : 'video and text chat platform'} that connects you with random strangers from around the world. It sits in the same space as Omegle alternatives and Chatroulette alternatives, built for people who want to talk to someone new without going through a social network or dating app.
-            </p>
-            <p>
-              The core experience is a one-on-one webcam chat with a stranger. You both show up on screen, you talk, and when either of you wants something new you press Next. There is no profile to build, no followers to collect, and no algorithm deciding who you see. It is one of the most direct forms of online social interaction you can find.
-            </p>
+            <p>{t('reviewSlug.whatIsP1', { name, category: t(categoryKey as any) })}</p>
+            <p>{t('reviewSlug.whatIsP2')}</p>
             {status !== 'Shut down' ? (
-              <p>
-                As of 2026, {review.name} is still active and used by people in multiple countries. It is commonly used for language practice, making friends online, curing boredom, and exploring conversations with strangers you would never meet any other way. {isFree ? 'The core features are free to use.' : 'A free tier is available alongside premium options.'}
-              </p>
+              <p>{t('reviewSlug.whatIsP3Active', { name, freeNote: isFree ? t('reviewSlug.whatIsFreeNote') : t('reviewSlug.whatIsPaidNote') })}</p>
             ) : (
-              <p>
-                {review.name} is no longer active after shutting down. If you are looking for a working alternative, RouletteChat offers the same free anonymous video chat experience with better safety and no sign-up required.
-              </p>
+              <p>{t('reviewSlug.whatIsP3Shutdown', { name })}</p>
             )}
           </div>
         </div>
@@ -212,7 +218,7 @@ export default function ReviewPage({ params: { slug, locale } }: Props) {
         {/* Pros / Cons */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-10">
           <div className="card-glass p-6">
-            <h2 className="font-bold text-green-400 mb-4 flex items-center gap-2"><span>✅</span> Pros</h2>
+            <h2 className="font-bold text-green-400 mb-4 flex items-center gap-2"><span>✅</span> {t('reviewSlug.pros')}</h2>
             <ul className="flex flex-col gap-2.5">
               {review.pros.map((pro) => (
                 <li key={pro} className="flex items-start gap-2 text-sm text-[#ccc]">
@@ -222,7 +228,7 @@ export default function ReviewPage({ params: { slug, locale } }: Props) {
             </ul>
           </div>
           <div className="card-glass p-6">
-            <h2 className="font-bold text-red-400 mb-4 flex items-center gap-2"><span>❌</span> Cons</h2>
+            <h2 className="font-bold text-red-400 mb-4 flex items-center gap-2"><span>❌</span> {t('reviewSlug.cons')}</h2>
             <ul className="flex flex-col gap-2.5">
               {review.cons.map((con) => (
                 <li key={con} className="flex items-start gap-2 text-sm text-[#ccc]">
@@ -235,7 +241,7 @@ export default function ReviewPage({ params: { slug, locale } }: Props) {
 
         {/* Feature table */}
         <div className="card-glass p-6 mb-10">
-          <h2 className="font-bold text-lg mb-5">Feature Overview</h2>
+          <h2 className="font-bold text-lg mb-5">{t('reviewSlug.featureOverview')}</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             {review.features.map((f) => (
               <div key={f.label} className="flex items-center justify-between py-2.5 border-b border-white/[0.05] last:border-0">
@@ -245,7 +251,7 @@ export default function ReviewPage({ params: { slug, locale } }: Props) {
                   f.value === false ? 'text-red-400' :
                   'text-white'
                 }`}>
-                  {f.value === true ? '✓ Yes' : f.value === false ? '✗ No' : String(f.value)}
+                  {f.value === true ? t('reviewSlug.featureYes') : f.value === false ? t('reviewSlug.featureNo') : String(f.value)}
                 </span>
               </div>
             ))}
@@ -254,7 +260,7 @@ export default function ReviewPage({ params: { slug, locale } }: Props) {
 
         {/* Tips */}
         <div className="card-glass rounded-2xl p-8 mb-10">
-          <h2 className="font-black text-lg mb-5">Tips for Getting the Most from {review.name}</h2>
+          <h2 className="font-black text-lg mb-5">{t('reviewSlug.tipsHeading', { name })}</h2>
           <ul className="flex flex-col gap-3">
             {tips.map((tip, i) => (
               <li key={i} className="flex items-start gap-3 text-sm text-muted leading-relaxed">
@@ -267,29 +273,29 @@ export default function ReviewPage({ params: { slug, locale } }: Props) {
 
         {/* CTA */}
         <div className="text-center bg-gradient-to-br from-purple-600/15 to-pink-500/12 border border-purple-500/25 rounded-2xl p-8 mb-10">
-          <p className="text-muted text-sm mb-2">Looking for the best alternative?</p>
-          <h3 className="font-bold text-xl mb-4">Try RouletteChat — Free, Fast & Safe</h3>
+          <p className="text-muted text-sm mb-2">{t('reviewSlug.ctaSub')}</p>
+          <h3 className="font-bold text-xl mb-4">{t('reviewSlug.ctaHeading')}</h3>
           <a
             href="/#chat"
             className="inline-flex items-center gap-2 bg-brand text-white font-bold px-7 py-3.5 rounded-xl shadow-glow hover:opacity-90 transition-opacity"
           >
-            Start Chatting Free →
+            {t('reviewSlug.ctaButton')}
           </a>
         </div>
 
         {/* User quotes */}
         <div className="mb-10">
-          <h2 className="font-black text-xl mb-6">What People Are Saying</h2>
+          <h2 className="font-black text-xl mb-6">{t('reviewSlug.quotesHeading')}</h2>
           <div className="flex flex-col gap-4">
-            {quotes.map(({ quote, name, city }) => (
-              <div key={name} className="card-glass rounded-2xl p-6 flex gap-5 items-start">
+            {quotes.map(({ quote, author, city }) => (
+              <div key={author} className="card-glass rounded-2xl p-6 flex gap-5 items-start">
                 <div className="w-9 h-9 rounded-full bg-gradient-to-br from-purple-600 to-pink-500 flex items-center justify-center text-xs font-black text-white flex-shrink-0 mt-0.5">
-                  {name[0]}
+                  {author[0]}
                 </div>
                 <div>
                   <p className="text-sm text-muted leading-relaxed mb-2">&ldquo;{quote}&rdquo;</p>
                   <div className="flex items-center gap-3">
-                    <span className="text-xs font-semibold text-white">{name}</span>
+                    <span className="text-xs font-semibold text-white">{author}</span>
                     <span className="text-xs text-muted">{city}</span>
                     <span className="text-amber-400 text-xs ml-auto">★★★★★</span>
                   </div>
@@ -301,7 +307,7 @@ export default function ReviewPage({ params: { slug, locale } }: Props) {
 
         {/* FAQ */}
         <div className="mb-14">
-          <h2 className="font-black text-xl mb-6">Frequently Asked Questions</h2>
+          <h2 className="font-black text-xl mb-6">{t('reviewSlug.faqHeading')}</h2>
           <div className="flex flex-col gap-3">
             {faq.map(({ q, a }) => (
               <details key={q} className="group card-glass rounded-2xl overflow-hidden">
@@ -316,7 +322,7 @@ export default function ReviewPage({ params: { slug, locale } }: Props) {
         </div>
 
         {/* Related */}
-        <h2 className="font-black text-xl mb-6">More Reviews</h2>
+        <h2 className="font-black text-xl mb-6">{t('reviewSlug.relatedHeading')}</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {related.map((r) => (
             <ReviewCard key={r.slug} review={r} locale={locale} />

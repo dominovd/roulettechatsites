@@ -1,29 +1,29 @@
 import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
 
-const FOOTER_LINKS = {
-  Product: [
-    { label: 'Start Chat', href: '/#chat' },
-    { label: 'Reviews Hub', href: '/reviews' },
-    { label: 'Compare Chats', href: '/compare' },
-    { label: 'Tools & Quizzes', href: '/tools' },
-  ],
-  Company: [
-    { label: 'About', href: '/about' },
-    { label: 'Safety Center', href: '/safety' },
-    { label: 'Blog', href: '/blog' },
-    { label: 'Contact', href: '/contact' },
-  ],
-  Legal: [
-    { label: 'Privacy Policy', href: '/privacy' },
-    { label: 'Terms of Service', href: '/terms' },
-    { label: 'Cookie Policy', href: '/cookies' },
-  ],
-};
-
 export default async function Footer({ locale }: { locale: string }) {
   const prefix = locale === 'en' ? '' : `/${locale}`;
   const t = await getTranslations({ locale, namespace: 'footer' });
+
+  const FOOTER_LINKS = {
+    [t('sectionProduct')]: [
+      { label: t('linkStartChat'), href: '/#chat' },
+      { label: t('linkReviews'), href: '/reviews' },
+      { label: t('linkCompare'), href: '/compare' },
+      { label: t('linkTools'), href: '/tools' },
+    ],
+    [t('sectionCompany')]: [
+      { label: t('linkAbout'), href: '/about' },
+      { label: t('linkSafety'), href: '/safety' },
+      { label: t('linkBlog'), href: '/blog' },
+      { label: t('linkContact'), href: '/contact' },
+    ],
+    [t('sectionLegal')]: [
+      { label: t('linkPrivacy'), href: '/privacy' },
+      { label: t('linkTerms'), href: '/terms' },
+      { label: t('linkCookies'), href: '/cookies' },
+    ],
+  };
 
   return (
     <footer className="relative z-10 border-t border-white/[0.07] mt-20">
@@ -47,6 +47,7 @@ export default async function Footer({ locale }: { locale: string }) {
           <div className="flex flex-wrap gap-10">
             {Object.entries(FOOTER_LINKS).map(([title, links]) => (
               <div key={title}>
+                <p className="text-xs font-semibold text-white/50 uppercase tracking-wider mb-3">{title}</p>
                 <ul className="flex flex-col gap-2.5">
                   {links.map((link) => (
                     <li key={link.href}>
@@ -70,7 +71,7 @@ export default async function Footer({ locale }: { locale: string }) {
             © {new Date().getFullYear()} RouletteChat. {t('copyright')}
           </span>
           <div className="flex gap-2">
-            {['🛡️ Safe Chat', '🌐 Global', '⚡ Free'].map((b) => (
+            {[`🛡️ ${t('badgeSafe')}`, `🌐 ${t('badgeGlobal')}`, `⚡ ${t('badgeFree')}`].map((b) => (
               <span
                 key={b}
                 className="text-[0.7rem] font-medium px-2.5 py-1 rounded-lg bg-white/[0.04] border border-white/[0.07] text-muted"
