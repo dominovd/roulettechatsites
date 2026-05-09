@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { OnlineCounter } from '@/components/OnlineCounter';
+import { ChatEmbed } from '@/components/ChatEmbed';
 import { locales } from '@/i18n';
 import { getTranslations } from 'next-intl/server';
 
@@ -179,17 +180,13 @@ export default async function HomePage({ params: { locale } }: { params: { local
             ))}
           </div>
 
-          {/* Iframe */}
-          <div className="iframe-shell">
-            <iframe
-              src="https://callmechat.com"
-              allow="camera; microphone; autoplay; fullscreen"
-              allowFullScreen
-              title="Live random video chat powered by CallMeChat"
-              className="w-full h-[580px] md:h-[650px] block border-0 bg-[#111]"
-              loading="lazy"
-            />
-          </div>
+          {/* Chat embed with splash screen */}
+          <ChatEmbed t={{
+            splashHeadline: t('chat.splashHeadline'),
+            splashSub: t('chat.splashSub'),
+            splashCta: t('chat.splashCta'),
+            splashNote: t('chat.splashNote'),
+          }} />
 
           {/* Post-iframe nudge */}
           <p className="text-center text-sm text-muted mt-5">

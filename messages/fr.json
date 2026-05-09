@@ -33,7 +33,11 @@
     "chip3": "Sûr & modéré",
     "nudgePre": "Vous voulez des filtres et plus de fonctionnalités ?",
     "nudgeStart": "Commencez à chatter maintenant",
-    "nudgePost": "— sans inscription."
+    "nudgePost": "— sans inscription.",
+    "splashHeadline": "Démarrer un chat vidéo aléatoire",
+    "splashSub": "Rencontrez de vraies personnes de plus de 180 pays instantanément. Sans inscription, sans téléchargement — cliquez et connectez.",
+    "splashCta": "Démarrer le chat vidéo — Gratuit",
+    "splashNote": "L'accès à la caméra et au microphone sera demandé par l'application de chat."
   },
   "statsSection": {
     "s1label": "Utilisateurs actifs mensuels",

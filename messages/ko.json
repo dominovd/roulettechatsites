@@ -33,7 +33,11 @@
     "chip3": "안전하고 관리됨",
     "nudgePre": "필터와 더 많은 기능을 원하시나요?",
     "nudgeStart": "지금 채팅 시작",
-    "nudgePost": "— 가입 불필요."
+    "nudgePost": "— 가입 불필요.",
+    "splashHeadline": "랜덤 화상 채팅 시작하기",
+    "splashSub": "180개국 이상의 실제 사람들과 즉시 만나보세요. 가입 불필요, 다운로드 없음 — 클릭하고 연결하세요.",
+    "splashCta": "화상 채팅 시작 — 무료",
+    "splashNote": "카메라 및 마이크 액세스는 채팅 앱에서 요청됩니다."
   },
   "statsSection": {
     "s1label": "월간 활성 사용자",

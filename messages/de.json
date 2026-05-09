@@ -33,7 +33,11 @@
     "chip3": "Sicher & moderiert",
     "nudgePre": "Filter und mehr Funktionen gewünscht?",
     "nudgeStart": "Jetzt chatten",
-    "nudgePost": "— keine Anmeldung nötig."
+    "nudgePost": "— keine Anmeldung nötig.",
+    "splashHeadline": "Zufälligen Video-Chat starten",
+    "splashSub": "Triff echte Menschen aus über 180 Ländern sofort. Keine Anmeldung, keine Downloads — einfach klicken und verbinden.",
+    "splashCta": "Video-Chat starten — Kostenlos",
+    "splashNote": "Die Chat-App wird Zugriff auf Kamera und Mikrofon anfordern."
   },
   "statsSection": {
     "s1label": "Monatlich aktive Nutzer",

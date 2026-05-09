@@ -33,7 +33,11 @@
     "chip3": "Seguro y moderado",
     "nudgePre": "¿Quieres filtros y más funciones?",
     "nudgeStart": "Empieza a chatear ahora",
-    "nudgePost": "— sin registro."
+    "nudgePost": "— sin registro.",
+    "splashHeadline": "Inicia un videochat aleatorio",
+    "splashSub": "Conoce personas reales de más de 180 países al instante. Sin registro, sin descargas — solo haz clic y conéctate.",
+    "splashCta": "Iniciar videochat — Gratis",
+    "splashNote": "El acceso a la cámara y el micrófono será solicitado por la aplicación de chat."
   },
   "statsSection": {
     "s1label": "Usuarios activos mensuales",

@@ -33,7 +33,11 @@
     "chip3": "Bezpieczny i moderowany",
     "nudgePre": "Chcesz filtry i więcej funkcji?",
     "nudgeStart": "Zacznij rozmawiać teraz",
-    "nudgePost": "— bez rejestracji."
+    "nudgePost": "— bez rejestracji.",
+    "splashHeadline": "Rozpocznij losowy czat wideo",
+    "splashSub": "Poznawaj prawdziwych ludzi z ponad 180 krajów natychmiast. Bez rejestracji, bez pobierania — po prostu kliknij i połącz się.",
+    "splashCta": "Rozpocznij czat wideo — Za darmo",
+    "splashNote": "Aplikacja czatu poprosi o dostęp do kamery i mikrofonu."
   },
   "statsSection": {
     "s1label": "Miesięcznie aktywni użytkownicy",

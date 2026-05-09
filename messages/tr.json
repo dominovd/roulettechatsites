@@ -33,7 +33,11 @@
     "chip3": "Güvenli ve denetimli",
     "nudgePre": "Filtreler ve daha fazla özellik ister misin?",
     "nudgeStart": "Şimdi sohbet başlat",
-    "nudgePost": "— kayıt gerekmez."
+    "nudgePost": "— kayıt gerekmez.",
+    "splashHeadline": "Rastgele Görüntülü Sohbet Başlat",
+    "splashSub": "180'den fazla ülkeden gerçek insanlarla anında tanışın. Kayıt yok, indirme yok — sadece tıkla ve bağlan.",
+    "splashCta": "Görüntülü Sohbet Başlat — Ücretsiz",
+    "splashNote": "Kamera ve mikrofon erişimi sohbet uygulaması tarafından istenecektir."
   },
   "statsSection": {
     "s1label": "Aylık aktif kullanıcı",

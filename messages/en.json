@@ -33,7 +33,11 @@
     "chip3": "Safe & moderated",
     "nudgePre": "Want filters & more features?",
     "nudgeStart": "Start chatting now",
-    "nudgePost": "— no sign-up required."
+    "nudgePost": "— no sign-up required.",
+    "splashHeadline": "Start a Random Video Chat",
+    "splashSub": "Meet real people from 180+ countries instantly. No sign-up, no downloads — just click and connect.",
+    "splashCta": "Start Video Chat — Free",
+    "splashNote": "Camera & mic access will be requested by the chat app."
   },
   "statsSection": {
     "s1label": "Monthly active users",
