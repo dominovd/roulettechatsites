@@ -1,10 +1,18 @@
 import type { Metadata } from 'next';
+import { locales } from '@/i18n';
 
-export const metadata: Metadata = {
-  title: 'Cookie Policy – RouletteChat',
-  description: 'Learn how RouletteChat uses cookies and how you can control them.',
-  alternates: { canonical: 'https://roulettechatsites.com/cookies' },
-};
+const BASE = 'https://roulettechatsites.com';
+const lp = (locale: string) => (locale === 'en' ? '' : `/${locale}`);
+
+export async function generateMetadata({ params: { locale } }: { params: { locale: string } }): Promise<Metadata> {
+  const languages: Record<string, string> = { 'x-default': `${BASE}/cookies` };
+  for (const loc of locales) languages[loc] = `${BASE}${lp(loc)}/cookies`;
+  return {
+    title: 'Cookie Policy – RouletteChat',
+    description: 'Learn how RouletteChat uses cookies and how you can control them.',
+    alternates: { canonical: `${BASE}${lp(locale)}/cookies`, languages },
+  };
+}
 
 const COOKIE_TYPES = [
   {
@@ -27,7 +35,7 @@ const COOKIE_TYPES = [
   },
 ];
 
-export default function CookiesPage() {
+export default function CookiesPage({ params: { locale } }: { params: { locale: string } }) {
   return (
     <div className="px-5 pt-28 pb-20">
       <div className="max-w-3xl mx-auto">

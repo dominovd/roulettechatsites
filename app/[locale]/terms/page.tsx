@@ -1,12 +1,20 @@
 import type { Metadata } from 'next';
+import { locales } from '@/i18n';
 
-export const metadata: Metadata = {
-  title: 'Terms of Service – RouletteChat',
-  description: 'Read the RouletteChat Terms of Service to understand the rules and conditions for using our platform.',
-  alternates: { canonical: 'https://roulettechatsites.com/terms' },
-};
+const BASE = 'https://roulettechatsites.com';
+const lp = (locale: string) => (locale === 'en' ? '' : `/${locale}`);
 
-export default function TermsPage() {
+export async function generateMetadata({ params: { locale } }: { params: { locale: string } }): Promise<Metadata> {
+  const languages: Record<string, string> = { 'x-default': `${BASE}/terms` };
+  for (const loc of locales) languages[loc] = `${BASE}${lp(loc)}/terms`;
+  return {
+    title: 'Terms of Service – RouletteChat',
+    description: 'Read the RouletteChat Terms of Service to understand the rules and conditions for using our platform.',
+    alternates: { canonical: `${BASE}${lp(locale)}/terms`, languages },
+  };
+}
+
+export default function TermsPage({ params: { locale } }: { params: { locale: string } }) {
   return (
     <div className="px-5 pt-28 pb-20">
       <div className="max-w-3xl mx-auto">

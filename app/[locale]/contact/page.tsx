@@ -1,10 +1,18 @@
 import type { Metadata } from 'next';
+import { locales } from '@/i18n';
 
-export const metadata: Metadata = {
-  title: 'Contact RouletteChat – Get in Touch',
-  description: 'Contact the RouletteChat team for support, safety reports, business inquiries, or press questions.',
-  alternates: { canonical: 'https://roulettechatsites.com/contact' },
-};
+const BASE = 'https://roulettechatsites.com';
+const lp = (locale: string) => (locale === 'en' ? '' : `/${locale}`);
+
+export async function generateMetadata({ params: { locale } }: { params: { locale: string } }): Promise<Metadata> {
+  const languages: Record<string, string> = { 'x-default': `${BASE}/contact` };
+  for (const loc of locales) languages[loc] = `${BASE}${lp(loc)}/contact`;
+  return {
+    title: 'Contact RouletteChat – Get in Touch',
+    description: 'Contact the RouletteChat team for support, safety reports, business inquiries, or press questions.',
+    alternates: { canonical: `${BASE}${lp(locale)}/contact`, languages },
+  };
+}
 
 const TOPICS = [
   { icon: '🛟', title: 'General Support', desc: 'Technical issues, account help, or general questions.', email: 'support@roulettechatsites.com' },
@@ -13,7 +21,7 @@ const TOPICS = [
   { icon: '📰', title: 'Press & Media', desc: 'Media inquiries, press kit requests, or interview opportunities.', email: 'support@roulettechatsites.com' },
 ];
 
-export default function ContactPage() {
+export default function ContactPage({ params: { locale } }: { params: { locale: string } }) {
   return (
     <div className="px-5 pt-28 pb-20">
       <div className="max-w-2xl mx-auto">

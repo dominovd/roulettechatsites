@@ -1,13 +1,28 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { OnlineCounter } from '@/components/OnlineCounter';
+import { locales } from '@/i18n';
 
-export const metadata: Metadata = {
-  title: 'RouletteChat – Meet Random People via Free Video Chat',
-  description:
-    'Instant random video chat with real people from 180+ countries. No sign-up required. Connect face-to-face in seconds.',
-  alternates: { canonical: 'https://roulettechatsites.com' },
-};
+const BASE = 'https://roulettechatsites.com';
+const lp = (locale: string) => (locale === 'en' ? '' : `/${locale}`);
+
+export async function generateMetadata({
+  params: { locale },
+}: {
+  params: { locale: string };
+}): Promise<Metadata> {
+  const canonical = `${BASE}${lp(locale)}`;
+  const languages: Record<string, string> = { 'x-default': BASE };
+  for (const loc of locales) {
+    languages[loc] = `${BASE}${lp(loc)}`;
+  }
+  return {
+    title: 'RouletteChat – Meet Random People via Free Video Chat',
+    description:
+      'Instant random video chat with real people from 180+ countries. No sign-up required. Connect face-to-face in seconds.',
+    alternates: { canonical, languages },
+  };
+}
 
 const FEATURES = [
   { icon: '⚡', title: 'Instant Matching', desc: 'Connected to a real person in under 3 seconds. No waiting rooms, no loading screens.' },
@@ -67,7 +82,7 @@ const FAQ = [
   },
 ];
 
-export default function HomePage() {
+export default function HomePage({ params: { locale } }: { params: { locale: string } }) {
   return (
     <>
       {/* ── HERO ── */}

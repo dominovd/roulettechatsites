@@ -1,12 +1,20 @@
 import type { Metadata } from 'next';
+import { locales } from '@/i18n';
 
-export const metadata: Metadata = {
-  title: 'Privacy Policy – RouletteChat',
-  description: 'Read the RouletteChat Privacy Policy to understand how we collect, use, and protect your data.',
-  alternates: { canonical: 'https://roulettechatsites.com/privacy' },
-};
+const BASE = 'https://roulettechatsites.com';
+const lp = (locale: string) => (locale === 'en' ? '' : `/${locale}`);
 
-export default function PrivacyPage() {
+export async function generateMetadata({ params: { locale } }: { params: { locale: string } }): Promise<Metadata> {
+  const languages: Record<string, string> = { 'x-default': `${BASE}/privacy` };
+  for (const loc of locales) languages[loc] = `${BASE}${lp(loc)}/privacy`;
+  return {
+    title: 'Privacy Policy – RouletteChat',
+    description: 'Read the RouletteChat Privacy Policy to understand how we collect, use, and protect your data.',
+    alternates: { canonical: `${BASE}${lp(locale)}/privacy`, languages },
+  };
+}
+
+export default function PrivacyPage({ params: { locale } }: { params: { locale: string } }) {
   return (
     <div className="px-5 pt-28 pb-20">
       <div className="max-w-3xl mx-auto">

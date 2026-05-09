@@ -1,11 +1,19 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { locales } from '@/i18n';
 
-export const metadata: Metadata = {
-  title: 'Blog – Random Chat Tips, Reviews & News | RouletteChat',
-  description: 'Tips for better random video chats, platform reviews, safety guides, and the latest news from the RouletteChat team.',
-  alternates: { canonical: 'https://roulettechatsites.com/blog' },
-};
+const BASE = 'https://roulettechatsites.com';
+const lp = (locale: string) => (locale === 'en' ? '' : `/${locale}`);
+
+export async function generateMetadata({ params: { locale } }: { params: { locale: string } }): Promise<Metadata> {
+  const languages: Record<string, string> = { 'x-default': `${BASE}/blog` };
+  for (const loc of locales) languages[loc] = `${BASE}${lp(loc)}/blog`;
+  return {
+    title: 'Blog – Random Chat Tips, Reviews & News | RouletteChat',
+    description: 'Tips for better random video chats, platform reviews, safety guides, and the latest news from the RouletteChat team.',
+    alternates: { canonical: `${BASE}${lp(locale)}/blog`, languages },
+  };
+}
 
 const POSTS = [
   {
@@ -66,7 +74,7 @@ const CATEGORY_COLORS: Record<string, string> = {
   'Deep Dive': 'text-pink-400 bg-pink-400/10 border-pink-400/20',
 };
 
-export default function BlogPage() {
+export default function BlogPage({ params: { locale } }: { params: { locale: string } }) {
   return (
     <div className="px-5 pt-28 pb-20">
       <div className="max-w-4xl mx-auto">

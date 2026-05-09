@@ -1,11 +1,19 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { locales } from '@/i18n';
 
-export const metadata: Metadata = {
-  title: 'Safety Center – RouletteChat',
-  description: 'Learn how RouletteChat keeps you safe with AI moderation, instant reporting, and community guidelines. Your safety is our top priority.',
-  alternates: { canonical: 'https://roulettechatsites.com/safety' },
-};
+const BASE = 'https://roulettechatsites.com';
+const lp = (locale: string) => (locale === 'en' ? '' : `/${locale}`);
+
+export async function generateMetadata({ params: { locale } }: { params: { locale: string } }): Promise<Metadata> {
+  const languages: Record<string, string> = { 'x-default': `${BASE}/safety` };
+  for (const loc of locales) languages[loc] = `${BASE}${lp(loc)}/safety`;
+  return {
+    title: 'Safety Center – RouletteChat',
+    description: 'Learn how RouletteChat keeps you safe with AI moderation, instant reporting, and community guidelines. Your safety is our top priority.',
+    alternates: { canonical: `${BASE}${lp(locale)}/safety`, languages },
+  };
+}
 
 const TIPS = [
   { icon: '🚫', title: 'Never share personal information', desc: 'Do not share your full name, address, phone number, school, or workplace with strangers in chat.' },
@@ -16,7 +24,7 @@ const TIPS = [
   { icon: '🔐', title: 'Use a strong password', desc: 'If you create an account, use a unique password and never reuse it across other services.' },
 ];
 
-export default function SafetyPage() {
+export default function SafetyPage({ params: { locale } }: { params: { locale: string } }) {
   return (
     <div className="px-5 pt-28 pb-20">
       <div className="max-w-3xl mx-auto">

@@ -1,11 +1,19 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { locales } from '@/i18n';
 
-export const metadata: Metadata = {
-  title: 'About RouletteChat – Our Mission & Story',
-  description: 'Learn about RouletteChat — a free random video chat platform built to connect real people from 180+ countries instantly and safely.',
-  alternates: { canonical: 'https://roulettechatsites.com/about' },
-};
+const BASE = 'https://roulettechatsites.com';
+const lp = (locale: string) => (locale === 'en' ? '' : `/${locale}`);
+
+export async function generateMetadata({ params: { locale } }: { params: { locale: string } }): Promise<Metadata> {
+  const languages: Record<string, string> = { 'x-default': `${BASE}/about` };
+  for (const loc of locales) languages[loc] = `${BASE}${lp(loc)}/about`;
+  return {
+    title: 'About RouletteChat – Our Mission & Story',
+    description: 'Learn about RouletteChat — a free random video chat platform built to connect real people from 180+ countries instantly and safely.',
+    alternates: { canonical: `${BASE}${lp(locale)}/about`, languages },
+  };
+}
 
 const VALUES = [
   { icon: '🌍', title: 'Global Connection', desc: 'We believe borders should never limit human connection. Every chat is a window into someone else\'s world.' },
@@ -21,7 +29,7 @@ const STATS = [
   { value: '2020', label: 'Founded' },
 ];
 
-export default function AboutPage() {
+export default function AboutPage({ params: { locale } }: { params: { locale: string } }) {
   return (
     <div className="px-5 pt-28 pb-20">
       <div className="max-w-3xl mx-auto">
