@@ -26,23 +26,34 @@ export function ChatEmbed({ t }: ChatEmbedProps) {
     script.src = 'https://callmechat.net/js/iframe.js';
 
     script.onload = function () {
+      function attachMousedown(iframe: Element) {
+        const onMousedown = (e: MouseEvent) => {
+          const rect = iframe.getBoundingClientRect();
+          if (
+            e.clientX >= rect.left && e.clientX <= rect.right &&
+            e.clientY >= rect.top  && e.clientY <= rect.bottom
+          ) {
+            setOverlayVisible(false);
+            document.removeEventListener('mousedown', onMousedown);
+          }
+        };
+        document.addEventListener('mousedown', onMousedown);
+      }
+
+      // callmechat may have already injected the iframe by the time onload fires
+      const existing = container.querySelector('iframe');
+      if (existing) {
+        attachMousedown(existing);
+        return;
+      }
+
+      // Otherwise watch for it being added
       const observer = new MutationObserver(function (mutations) {
         mutations.forEach(function (mutation) {
           if (mutation.addedNodes.length) {
             const iframe = container.querySelector('iframe');
             if (iframe) {
-              // mousedown fires at document level BEFORE the iframe captures the click
-              const onMousedown = (e: MouseEvent) => {
-                const rect = iframe.getBoundingClientRect();
-                if (
-                  e.clientX >= rect.left && e.clientX <= rect.right &&
-                  e.clientY >= rect.top  && e.clientY <= rect.bottom
-                ) {
-                  setOverlayVisible(false);
-                  document.removeEventListener('mousedown', onMousedown);
-                }
-              };
-              document.addEventListener('mousedown', onMousedown);
+              attachMousedown(iframe);
               observer.disconnect();
             }
           }
