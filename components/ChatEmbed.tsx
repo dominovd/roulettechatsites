@@ -26,17 +26,20 @@ export function ChatEmbed({ t }: ChatEmbedProps) {
     script.src = 'https://callmechat.net/js/iframe.js';
 
     script.onload = function () {
-      // Watch for iframe to appear, then listen for any click inside it
       const observer = new MutationObserver(function (mutations) {
         mutations.forEach(function (mutation) {
           if (mutation.addedNodes.length) {
             const iframe = container.querySelector('iframe');
             if (iframe) {
-              // Hide overlay when iframe itself is clicked (user clicked their button)
-              iframe.addEventListener('load', () => {
-                // Slight delay so callmechat UI is visible first
-                setTimeout(() => setOverlayVisible(false), 300);
-              });
+              // Detect click inside cross-origin iframe via window.blur
+              // (browser shifts focus to iframe on click, causing window to lose focus)
+              const onBlur = () => {
+                if (document.activeElement === iframe) {
+                  setOverlayVisible(false);
+                  window.removeEventListener('blur', onBlur);
+                }
+              };
+              window.addEventListener('blur', onBlur);
               observer.disconnect();
             }
           }
@@ -49,14 +52,8 @@ export function ChatEmbed({ t }: ChatEmbedProps) {
     firstScript.parentNode!.insertBefore(script, firstScript);
   }, []);
 
-  // Hide overlay when user clicks anywhere on the embed area
-  const handleClick = () => setOverlayVisible(false);
-
   return (
-    <div
-      className="relative w-full h-[580px] md:h-[650px] rounded-2xl overflow-hidden bg-[#0d0d14]"
-      onClick={handleClick}
-    >
+    <div className="relative w-full h-[580px] md:h-[650px] rounded-2xl overflow-hidden bg-[#0d0d14]">
       {/* Iframe — always loaded */}
       <div
         id="callmechat_container"
