@@ -26,34 +26,41 @@ export function ChatEmbed({ t }: ChatEmbedProps) {
     script.src = 'https://callmechat.net/js/iframe.js';
 
     script.onload = function () {
-      function attachMousedown(iframe: Element) {
-        const onMousedown = (e: MouseEvent) => {
-          const rect = iframe.getBoundingClientRect();
-          if (
-            e.clientX >= rect.left && e.clientX <= rect.right &&
-            e.clientY >= rect.top  && e.clientY <= rect.bottom
-          ) {
-            setOverlayVisible(false);
-            document.removeEventListener('mousedown', onMousedown);
-          }
-        };
-        document.addEventListener('mousedown', onMousedown);
+      function attachListeners(iframe: HTMLIFrameElement) {
+        let done = false;
+        function hide() {
+          if (done) return;
+          done = true;
+          setOverlayVisible(false);
+          window.removeEventListener('blur', onBlur);
+          clearInterval(poll);
+        }
+
+        // window.blur fires the moment focus moves into the cross-origin iframe
+        const onBlur = () => setTimeout(hide, 0);
+        window.addEventListener('blur', onBlur);
+
+        // Polling fallback: some browsers delay activeElement update
+        const poll = setInterval(() => {
+          if (document.activeElement === iframe) hide();
+        }, 150);
       }
 
-      // callmechat may have already injected the iframe by the time onload fires
+      // callmechat injects the iframe synchronously on script execute,
+      // so it's usually already in the DOM by the time onload fires
       const existing = container.querySelector('iframe');
       if (existing) {
-        attachMousedown(existing);
+        attachListeners(existing as HTMLIFrameElement);
         return;
       }
 
-      // Otherwise watch for it being added
+      // Fallback: observe in case it arrives asynchronously
       const observer = new MutationObserver(function (mutations) {
         mutations.forEach(function (mutation) {
           if (mutation.addedNodes.length) {
             const iframe = container.querySelector('iframe');
             if (iframe) {
-              attachMousedown(iframe);
+              attachListeners(iframe as HTMLIFrameElement);
               observer.disconnect();
             }
           }
