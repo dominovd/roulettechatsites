@@ -71,11 +71,11 @@ export function ChatEmbed({ t }: ChatEmbedProps) {
         ].join(' ')}
         style={{ pointerEvents: overlayVisible ? 'none' : 'none' }}
       >
-        {/* Top branding gradient — opaque */}
+        {/* Top branding — opaque, covers callmechat title + subtitle text */}
         <div
-          className="absolute inset-x-0 top-0 flex flex-col items-center pt-10 pb-6 px-6 text-center"
+          className="absolute inset-x-0 top-0 flex flex-col items-center pt-10 pb-16 px-6 text-center"
           style={{
-            background: 'linear-gradient(to bottom, #0d0d14 0%, #0d0d14 60%, transparent 100%)',
+            background: 'linear-gradient(to bottom, #0d0d14 0%, #0d0d14 55%, rgba(13,13,20,0.85) 75%, transparent 100%)',
           }}
         >
           {/* Live badge */}
@@ -92,14 +92,11 @@ export function ChatEmbed({ t }: ChatEmbedProps) {
           <h3 className="text-xl md:text-2xl font-black text-white mb-2 tracking-tight">
             {t.splashHeadline}
           </h3>
-          <p className="text-muted text-xs max-w-xs leading-relaxed">
-            {t.splashSub}
-          </p>
         </div>
 
-        {/* Bottom fade — opaque at bottom, transparent at center (where callmechat button is) */}
+        {/* Bottom fade */}
         <div
-          className="absolute inset-x-0 bottom-0 h-24"
+          className="absolute inset-x-0 bottom-0 h-20"
           style={{
             background: 'linear-gradient(to top, #0d0d14 0%, transparent 100%)',
           }}
