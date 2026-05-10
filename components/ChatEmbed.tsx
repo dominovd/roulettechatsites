@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 
 interface ChatEmbedProps {
   t: {
@@ -14,62 +14,58 @@ interface ChatEmbedProps {
 export function ChatEmbed({ t }: ChatEmbedProps) {
   const [started, setStarted] = useState(false);
   const [loaded, setLoaded] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!started || !containerRef.current) return;
+    if (!started) return;
 
-    const container = containerRef.current;
+    // Exact same logic as the original iframe.js wrapper
+    (function () {
+      const callmechat = document.createElement('script');
+      callmechat.type = 'text/javascript';
+      callmechat.async = true;
+      callmechat.src = 'https://callmechat.net/js/iframe.js';
 
-    // Load the official CallMeChat embed script
-    const script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.async = true;
-    script.src = 'https://callmechat.net/js/iframe.js';
+      callmechat.onload = function () {
+        const container = document.getElementById('callmechat_container');
+        if (!container) return;
 
-    script.onload = () => {
-      // Watch for the iframe being injected by their script
-      const observer = new MutationObserver((mutations) => {
-        for (const mutation of mutations) {
-          if (mutation.addedNodes.length) {
-            const iframe = container.querySelector('iframe');
-            if (iframe) {
-              iframe.onload = () => setLoaded(true);
-              // Fallback: if onload doesn't fire (already cached), mark loaded after short delay
-              setTimeout(() => setLoaded(true), 3000);
-              observer.disconnect();
+        const observer = new MutationObserver(function (mutations) {
+          mutations.forEach(function (mutation) {
+            if (mutation.addedNodes.length) {
+              const iframe = container.querySelector('iframe');
+              if (iframe) {
+                iframe.onload = function () {
+                  setLoaded(true);
+                };
+                // Fallback: mark loaded after 4s if onload doesn't fire
+                setTimeout(() => setLoaded(true), 4000);
+                observer.disconnect();
+              }
             }
-          }
-        }
-      });
-      observer.observe(container, { childList: true, subtree: true });
-    };
+          });
+        });
+        observer.observe(container, { childList: true });
+      };
 
-    // Fallback if script fails to load
-    script.onerror = () => setLoaded(true);
+      callmechat.onerror = function () {
+        setLoaded(true); // hide splash even if script fails
+      };
 
-    document.head.appendChild(script);
-
-    return () => {
-      // Cleanup script on unmount
-      script.remove();
-    };
+      const firstScript = document.getElementsByTagName('script')[0];
+      firstScript.parentNode!.insertBefore(callmechat, firstScript);
+    })();
   }, [started]);
 
   return (
     <div className="relative w-full h-[580px] md:h-[650px] rounded-2xl overflow-hidden bg-[#0d0d14]">
 
-      {/* ── CALLMECHAT CONTAINER ─────────────────────────── */}
-      {started && (
-        <div
-          id="callmechat_container"
-          ref={containerRef}
-          className="absolute inset-0 w-full h-full"
-          style={{ position: 'relative', width: '100%', height: '100%' }}
-        />
-      )}
+      {/* CallMeChat container — always in DOM so script can find it */}
+      <div
+        id="callmechat_container"
+        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}
+      />
 
-      {/* ── SPLASH OVERLAY ────────────────────────────────── */}
+      {/* Splash overlay */}
       <div
         className={[
           'absolute inset-0 flex flex-col items-center justify-center text-center px-6 z-10',
@@ -78,7 +74,6 @@ export function ChatEmbed({ t }: ChatEmbedProps) {
         ].join(' ')}
         aria-hidden={loaded}
       >
-        {/* Background */}
         <div className="absolute inset-0 bg-[#0d0d14]" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_55%_at_50%_50%,rgba(124,58,237,.22)_0%,transparent_70%)]" />
 
@@ -93,7 +88,6 @@ export function ChatEmbed({ t }: ChatEmbedProps) {
           🎲
         </div>
 
-        {/* Headline */}
         <h3 className="relative text-2xl md:text-3xl font-black text-white mb-3 tracking-tight">
           {t.splashHeadline}
         </h3>
@@ -101,7 +95,6 @@ export function ChatEmbed({ t }: ChatEmbedProps) {
           {t.splashSub}
         </p>
 
-        {/* CTA / Spinner */}
         {!started ? (
           <button
             onClick={() => setStarted(true)}
@@ -119,7 +112,6 @@ export function ChatEmbed({ t }: ChatEmbedProps) {
           </div>
         )}
 
-        {/* Note & pills */}
         {!started && (
           <>
             <p className="relative text-xs text-muted/60 mt-4">{t.splashNote}</p>
