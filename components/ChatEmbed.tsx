@@ -25,30 +25,46 @@ export function ChatEmbed({ t }: ChatEmbedProps) {
       callmechat.async = true;
       callmechat.src = 'https://callmechat.net/js/iframe.js';
 
+      // Global fallback: always hide splash after 8s no matter what
+      const globalTimeout = setTimeout(() => setLoaded(true), 8000);
+
       callmechat.onload = function () {
         const container = document.getElementById('callmechat_container');
         if (!container) return;
+
+        const attachLoad = (iframe: HTMLIFrameElement) => {
+          iframe.addEventListener('load', () => {
+            clearTimeout(globalTimeout);
+            setLoaded(true);
+          });
+          // Per-iframe fallback in case load event doesn't fire
+          setTimeout(() => setLoaded(true), 4000);
+        };
+
+        // Iframe may already be in container by the time onload fires
+        const existing = container.querySelector('iframe');
+        if (existing) {
+          attachLoad(existing as HTMLIFrameElement);
+          return;
+        }
 
         const observer = new MutationObserver(function (mutations) {
           mutations.forEach(function (mutation) {
             if (mutation.addedNodes.length) {
               const iframe = container.querySelector('iframe');
               if (iframe) {
-                iframe.onload = function () {
-                  setLoaded(true);
-                };
-                // Fallback: mark loaded after 4s if onload doesn't fire
-                setTimeout(() => setLoaded(true), 4000);
+                attachLoad(iframe as HTMLIFrameElement);
                 observer.disconnect();
               }
             }
           });
         });
-        observer.observe(container, { childList: true });
+        observer.observe(container, { childList: true, subtree: true });
       };
 
       callmechat.onerror = function () {
-        setLoaded(true); // hide splash even if script fails
+        clearTimeout(globalTimeout);
+        setLoaded(true);
       };
 
       const firstScript = document.getElementsByTagName('script')[0];
