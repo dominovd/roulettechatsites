@@ -1,9 +1,8 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 interface ChatEmbedProps {
-  /** Translation strings — pass from the server page */
   t: {
     splashHeadline: string;
     splashSub: string;
@@ -15,31 +14,62 @@ interface ChatEmbedProps {
 export function ChatEmbed({ t }: ChatEmbedProps) {
   const [started, setStarted] = useState(false);
   const [loaded, setLoaded] = useState(false);
-  const iframeRef = useRef<HTMLIFrameElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  const handleStart = () => setStarted(true);
-  const handleLoad = () => setLoaded(true);
+  useEffect(() => {
+    if (!started || !containerRef.current) return;
+
+    const container = containerRef.current;
+
+    // Load the official CallMeChat embed script
+    const script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.async = true;
+    script.src = 'https://callmechat.net/js/iframe.js';
+
+    script.onload = () => {
+      // Watch for the iframe being injected by their script
+      const observer = new MutationObserver((mutations) => {
+        for (const mutation of mutations) {
+          if (mutation.addedNodes.length) {
+            const iframe = container.querySelector('iframe');
+            if (iframe) {
+              iframe.onload = () => setLoaded(true);
+              // Fallback: if onload doesn't fire (already cached), mark loaded after short delay
+              setTimeout(() => setLoaded(true), 3000);
+              observer.disconnect();
+            }
+          }
+        }
+      });
+      observer.observe(container, { childList: true, subtree: true });
+    };
+
+    // Fallback if script fails to load
+    script.onerror = () => setLoaded(true);
+
+    document.head.appendChild(script);
+
+    return () => {
+      // Cleanup script on unmount
+      script.remove();
+    };
+  }, [started]);
 
   return (
     <div className="relative w-full h-[580px] md:h-[650px] rounded-2xl overflow-hidden bg-[#0d0d14]">
 
-      {/* ── IFRAME ─────────────────────────────────────────── */}
+      {/* ── CALLMECHAT CONTAINER ─────────────────────────── */}
       {started && (
-        <iframe
-          ref={iframeRef}
-          src="https://callmechat.com"
-          allow="camera; microphone; autoplay; fullscreen"
-          allowFullScreen
-          title="Live random video chat powered by CallMeChat"
-          onLoad={handleLoad}
-          className="absolute inset-0 w-full h-full border-0"
+        <div
+          id="callmechat_container"
+          ref={containerRef}
+          className="absolute inset-0 w-full h-full"
+          style={{ position: 'relative', width: '100%', height: '100%' }}
         />
       )}
 
-      {/* ── SPLASH OVERLAY ──────────────────────────────────
-          Visible until user clicks OR until iframe has loaded after click.
-          Fades out smoothly once `loaded` becomes true.
-      ──────────────────────────────────────────────────── */}
+      {/* ── SPLASH OVERLAY ────────────────────────────────── */}
       <div
         className={[
           'absolute inset-0 flex flex-col items-center justify-center text-center px-6 z-10',
@@ -48,7 +78,7 @@ export function ChatEmbed({ t }: ChatEmbedProps) {
         ].join(' ')}
         aria-hidden={loaded}
       >
-        {/* Background glow */}
+        {/* Background */}
         <div className="absolute inset-0 bg-[#0d0d14]" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_55%_at_50%_50%,rgba(124,58,237,.22)_0%,transparent_70%)]" />
 
@@ -71,10 +101,10 @@ export function ChatEmbed({ t }: ChatEmbedProps) {
           {t.splashSub}
         </p>
 
-        {/* CTA */}
+        {/* CTA / Spinner */}
         {!started ? (
           <button
-            onClick={handleStart}
+            onClick={() => setStarted(true)}
             className="relative inline-flex items-center gap-2.5 bg-brand text-white font-bold text-base px-8 py-4 rounded-[14px] shadow-glow hover:shadow-glow-lg hover:-translate-y-0.5 transition-all"
           >
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.2}>
@@ -83,30 +113,24 @@ export function ChatEmbed({ t }: ChatEmbedProps) {
             {t.splashCta}
           </button>
         ) : (
-          /* Spinner shown while iframe is loading after click */
           <div className="relative flex flex-col items-center gap-3">
             <div className="w-10 h-10 rounded-full border-2 border-purple-500/30 border-t-purple-400 animate-spin" />
             <span className="text-xs text-muted">Connecting…</span>
           </div>
         )}
 
-        {/* Note */}
+        {/* Note & pills */}
         {!started && (
-          <p className="relative text-xs text-muted/60 mt-4">{t.splashNote}</p>
-        )}
-
-        {/* Feature pills */}
-        {!started && (
-          <div className="relative flex flex-wrap justify-center gap-2 mt-6">
-            {['No sign-up', '180+ countries', 'HD video', 'Free forever'].map((pill) => (
-              <span
-                key={pill}
-                className="inline-flex items-center gap-1 bg-white/[0.05] border border-white/[0.08] rounded-full px-3 py-1 text-[0.7rem] text-muted"
-              >
-                ✓ {pill}
-              </span>
-            ))}
-          </div>
+          <>
+            <p className="relative text-xs text-muted/60 mt-4">{t.splashNote}</p>
+            <div className="relative flex flex-wrap justify-center gap-2 mt-6">
+              {['No sign-up', '180+ countries', 'HD video', 'Free forever'].map((pill) => (
+                <span key={pill} className="inline-flex items-center gap-1 bg-white/[0.05] border border-white/[0.08] rounded-full px-3 py-1 text-[0.7rem] text-muted">
+                  ✓ {pill}
+                </span>
+              ))}
+            </div>
+          </>
         )}
       </div>
     </div>
