@@ -31,15 +31,18 @@ export function ChatEmbed({ t }: ChatEmbedProps) {
           if (mutation.addedNodes.length) {
             const iframe = container.querySelector('iframe');
             if (iframe) {
-              // Detect click inside cross-origin iframe via window.blur
-              // (browser shifts focus to iframe on click, causing window to lose focus)
-              const onBlur = () => {
-                if (document.activeElement === iframe) {
+              // mousedown fires at document level BEFORE the iframe captures the click
+              const onMousedown = (e: MouseEvent) => {
+                const rect = iframe.getBoundingClientRect();
+                if (
+                  e.clientX >= rect.left && e.clientX <= rect.right &&
+                  e.clientY >= rect.top  && e.clientY <= rect.bottom
+                ) {
                   setOverlayVisible(false);
-                  window.removeEventListener('blur', onBlur);
+                  document.removeEventListener('mousedown', onMousedown);
                 }
               };
-              window.addEventListener('blur', onBlur);
+              document.addEventListener('mousedown', onMousedown);
               observer.disconnect();
             }
           }
