@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { OnlineCounter } from '@/components/OnlineCounter';
-import { ChatEmbed } from '@/components/ChatEmbed';
+import { ChatSection } from '@/components/ChatSection';
 import { locales } from '@/i18n';
 import { getTranslations } from 'next-intl/server';
 
@@ -13,20 +13,14 @@ export async function generateMetadata({
 }: {
   params: { locale: string };
 }): Promise<Metadata> {
-  const canonical = `${BASE}${lp(locale)}`;
-  const languages: Record<string, string> = { 'x-default': BASE };
-  for (const loc of locales) {
-    languages[loc] = `${BASE}${lp(loc)}`;
-  }
   return {
-    title: 'RouletteChat – Meet Random People via Free Video Chat',
-    description:
-      'Instant random video chat with real people from 180+ countries. No sign-up required. Connect face-to-face in seconds.',
-    alternates: { canonical, languages },
+    title: 'RouletteChat – Preview Page',
+    description: 'Preview page – not for indexing.',
+    robots: { index: false, follow: false },
   };
 }
 
-export default async function HomePage({ params: { locale } }: { params: { locale: string } }) {
+export default async function MainPreviewPage({ params: { locale } }: { params: { locale: string } }) {
   const t = await getTranslations({ locale });
 
   const FEATURES = [
@@ -180,8 +174,8 @@ export default async function HomePage({ params: { locale } }: { params: { local
             ))}
           </div>
 
-          {/* Live chat embed */}
-          <ChatEmbed t={{
+          {/* FakeChat (3 videos) → real iframe */}
+          <ChatSection t={{
             splashHeadline: t('chat.splashHeadline'),
             splashSub: t('chat.splashSub'),
             splashCta: t('chat.splashCta'),
@@ -357,40 +351,6 @@ export default async function HomePage({ params: { locale } }: { params: { local
           <p className="text-xs text-muted mt-4">{t('cta.note')}</p>
         </div>
       </section>
-
-      {/* JSON-LD: WebSite */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'WebSite',
-            name: 'RouletteChat',
-            url: 'https://roulettechatsites.com',
-            description: 'Free random video chat with people from 180+ countries.',
-            potentialAction: {
-              '@type': 'SearchAction',
-              target: 'https://roulettechatsites.com/reviews?q={search_term_string}',
-              'query-input': 'required name=search_term_string',
-            },
-          }),
-        }}
-      />
-      {/* JSON-LD: FAQPage */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'FAQPage',
-            mainEntity: FAQ.map(({ q, a }) => ({
-              '@type': 'Question',
-              name: q,
-              acceptedAnswer: { '@type': 'Answer', text: a },
-            })),
-          }),
-        }}
-      />
     </>
   );
 }
