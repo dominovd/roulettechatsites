@@ -118,24 +118,16 @@ export function FakeChat({ onStartReal }: FakeChatProps) {
           <span className="text-white font-semibold text-sm">
             {profile.name} {profile.flag}
           </span>
-          <span className="text-white/55 text-xs">{profile.age} лет</span>
+          <span className="text-white/55 text-xs">{profile.age} y.o.</span>
         </div>
 
-        {/* Report user */}
-        <button className="ml-auto flex items-center gap-1 bg-red-500 hover:bg-red-600 active:scale-95 text-white text-xs font-medium px-3 py-1.5 rounded-full transition-all flex-shrink-0">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="w-3 h-3">
-            <circle cx="12" cy="12" r="10"/>
-            <line x1="12" y1="8" x2="12" y2="12"/>
-            <circle cx="12" cy="16" r="0.5" fill="currentColor"/>
-          </svg>
-          Report user
-        </button>
+
       </div>
 
       {/* ── Bottom controls ── */}
       <div className="absolute bottom-0 left-0 right-0 flex flex-col items-center pb-6 z-10">
         <p className="text-white/55 text-sm mb-5 select-none">
-          Нажмите «refresh», чтобы найти следующего
+          Press refresh to find the next person
         </p>
 
         <div className="flex items-center justify-center gap-5">
