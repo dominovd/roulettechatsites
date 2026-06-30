@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { OnlineCounter } from '@/components/OnlineCounter';
-import { ChatEmbed } from '@/components/ChatEmbed';
+import { ChatSection } from '@/components/ChatSection';
 import { locales } from '@/i18n';
 import { getTranslations } from 'next-intl/server';
 
@@ -180,8 +180,8 @@ export default async function HomePage({ params: { locale } }: { params: { local
             ))}
           </div>
 
-          {/* Chat embed with splash screen */}
-          <ChatEmbed t={{
+          {/* Fake chat (3 videos) → real iframe */}
+          <ChatSection t={{
             splashHeadline: t('chat.splashHeadline'),
             splashSub: t('chat.splashSub'),
             splashCta: t('chat.splashCta'),
