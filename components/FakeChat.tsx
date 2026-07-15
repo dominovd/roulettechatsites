@@ -1,29 +1,29 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 
-// 20 smallest videos from Hulk_Videos (copy to public/videos/)
+// Videos from public/videos/ (auto-generated list)
 const VIDEOS = [
-  '/videos/edfe7be1a1401aee0d8a65b14381c381_4232175077_0.mp4',
-  '/videos/7123fcdb-84d2-4f04-ac34-c5be9f54f9dc.mp4',
-  '/videos/523308db-7f9e-40c3-883f-7dbe05d23767.mp4',
-  '/videos/4b693d66124cd4b92da1e99fb7a595e8_2802748323_0.mp4',
-  '/videos/83b3f83c-b110-4f64-acd5-5a8b8c90257a.mp4',
-  '/videos/b6e68932e74efb432174aca36a5f5a7b_1787680606_0.mp4',
-  '/videos/af8bed93-deb1-4920-ad87-f8e9d4602ed7.mp4',
-  '/videos/cf1a3a027d48743ce70698a64db8f4b5_2695100147_0.mp4',
-  '/videos/34bb8f98-7842-463f-88e7-fef13e4cdac5.mp4',
-  '/videos/449642be-9ab6-4dd9-bea6-4f5028cfd8ec.mp4',
-  '/videos/ce70e0bc-0476-4a1c-8c15-fcb94f9d56ea.mp4',
-  '/videos/4b62f3ae-7e2b-48f4-bd2c-5666a75bba00.mp4',
-  '/videos/4fa4adfb-5ed8-40a2-8e49-3bee46c3ed93.mp4',
-  '/videos/48b71bd0-cc86-42e5-a0fc-249b0db702ac.mp4',
-  '/videos/abd979ac-0dce-4bed-8eec-d197a1caf7a4.mp4',
-  '/videos/856cb6f2-5554-4831-a2c5-4315111bf7c0.mp4',
-  '/videos/e2783a5f-3724-44e3-b948-4cafe041af96.mp4',
-  '/videos/f4eb5171-2cae-47f6-aa83-993f8e91e3fe.mp4',
-  '/videos/35d54eee-ed68-48bd-9389-00b29ec04932.mp4',
-  '/videos/420d6e54-1b69-4ae7-9eee-cf3561bcb8fb.mp4',
+  '/videos/0097dfab-4d47-4d45-8696-93fa4f6b3d4e.mp4',
+  '/videos/055cf4be-adae-41fe-9dc7-432034eec4bb.mp4',
+  '/videos/22ff4c2d-f86c-4fe9-91f6-c772215c27fa.mp4',
+  '/videos/2be25d9e-43e2-4905-ab42-a9582c445dd5.mp4',
+  '/videos/2d9320ad-92c3-4193-8033-26db06188f04.mp4',
+  '/videos/4278898b-53a4-457f-b0b0-aedf35213d6c.mp4',
+  '/videos/447fd23f-e47e-4179-b64a-14f13de00cd1.mp4',
+  '/videos/532d07a5-55bd-495f-abeb-3dddb9779a81.mp4',
+  '/videos/59f7b9ad-7ef3-429f-8bac-c0b13ef25bb1.mp4',
+  '/videos/5c655929-2f33-4ee8-993e-b91e3e545b78.mp4',
+  '/videos/6f2df231-cb3f-4021-9e0d-1a73d4cca729.mp4',
+  '/videos/88644ed7-0438-411e-a93c-8e1ceeaa615a.mp4',
+  '/videos/a00f69a4-0048-47bc-a5b5-d84e2c3bfa8d.mp4',
+  '/videos/a43e84c2-e7cc-49dd-b664-2ab7f94cd440.mp4',
+  '/videos/aa45f46c-6e64-40f4-b7d3-55e56eefffe4.mp4',
+  '/videos/b927198a-80c0-4bc4-b137-c23edb97b622.mp4',
+  '/videos/c1725ee6-4b01-46e6-8002-2b396fb371b4.mp4',
+  '/videos/d5ef4be1-b238-4b5c-b81b-740079eda509.mp4',
+  '/videos/e4f295a9-2073-4749-be8b-93065943d615.mp4',
+  '/videos/f02e3362-6ebb-47c8-8a8e-6a82f264675c.mp4',
 ];
 
 const PROFILES = [
@@ -49,41 +49,43 @@ const PROFILES = [
   { name: 'Priya',     age: 25, flag: '🇮🇳', color: '#f87171' },
 ];
 
-function pickDifferent<T extends { name: string }>(arr: T[], current: T): T {
-  const others = arr.filter((p) => p.name !== current.name);
-  return others[Math.floor(Math.random() * others.length)];
+function pickRandom<T>(arr: T[], exclude?: T): T {
+  const pool = exclude !== undefined ? arr.filter(x => x !== exclude) : arr;
+  return pool[Math.floor(Math.random() * pool.length)];
 }
 
 interface FakeChatProps {
   onStartReal: () => void;
 }
 
-// User sees 3 videos (refresh × 2 to cycle, refresh × 1 more → real iframe)
+// User sees this many videos before switching to real iframe
 const VIDEOS_BEFORE_REAL = 3;
 
 export function FakeChat({ onStartReal }: FakeChatProps) {
-  const [videoIdx, setVideoIdx]   = useState(0);
-  const [profile, setProfile]     = useState(PROFILES[0]);
+  // Start with a random video and profile, not always index 0
+  const [videoSrc, setVideoSrc]     = useState(() => pickRandom(VIDEOS));
+  const [profile, setProfile]       = useState(() => pickRandom(PROFILES));
   const [refreshCount, setRefreshCount] = useState(0);
 
-  const handleRefresh = () => {
+  const handleRefresh = useCallback(() => {
     const next = refreshCount + 1;
     if (next >= VIDEOS_BEFORE_REAL) {
       onStartReal();
       return;
     }
     setRefreshCount(next);
-    setVideoIdx((i) => (i + 1) % VIDEOS.length);
-    setProfile((p) => pickDifferent(PROFILES, p));
-  };
+    // Pick a different random video and profile each time
+    setVideoSrc(prev => pickRandom(VIDEOS, prev));
+    setProfile(prev => pickRandom(PROFILES, prev));
+  }, [refreshCount, onStartReal]);
 
   return (
     <div className="relative w-full h-[580px] md:h-[650px] rounded-2xl overflow-hidden bg-black">
 
       {/* ── Video ── */}
       <video
-        key={videoIdx}
-        src={VIDEOS[videoIdx]}
+        key={videoSrc}
+        src={videoSrc}
         className="absolute inset-0 w-full h-full object-cover"
         autoPlay
         muted
@@ -91,7 +93,7 @@ export function FakeChat({ onStartReal }: FakeChatProps) {
         playsInline
       />
 
-      {/* Top gradient for readability */}
+      {/* Top gradient */}
       <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-black/65 to-transparent pointer-events-none" />
       {/* Bottom gradient */}
       <div className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-black/70 to-transparent pointer-events-none" />
@@ -120,8 +122,6 @@ export function FakeChat({ onStartReal }: FakeChatProps) {
           </span>
           <span className="text-white/55 text-xs">{profile.age} y.o.</span>
         </div>
-
-
       </div>
 
       {/* ── Bottom controls ── */}
@@ -131,7 +131,7 @@ export function FakeChat({ onStartReal }: FakeChatProps) {
         </p>
 
         <div className="flex items-center justify-center gap-5">
-          {/* Refresh — red, cycles videos → iframe after 3 */}
+          {/* Refresh — red, cycles videos → real iframe after VIDEOS_BEFORE_REAL */}
           <button
             onClick={handleRefresh}
             className="w-14 h-14 rounded-full bg-red-500 hover:bg-red-600 active:scale-95 flex items-center justify-center shadow-xl transition-all"
@@ -143,7 +143,7 @@ export function FakeChat({ onStartReal }: FakeChatProps) {
             </svg>
           </button>
 
-          {/* Chat — white, go to real iframe */}
+          {/* Chat → real iframe */}
           <button
             onClick={onStartReal}
             className="w-12 h-12 rounded-full bg-white hover:bg-gray-100 active:scale-95 flex items-center justify-center shadow-xl transition-all"
@@ -155,7 +155,7 @@ export function FakeChat({ onStartReal }: FakeChatProps) {
             </svg>
           </button>
 
-          {/* Camera flip — white, go to real iframe */}
+          {/* Camera → real iframe */}
           <button
             onClick={onStartReal}
             className="w-12 h-12 rounded-full bg-white hover:bg-gray-100 active:scale-95 flex items-center justify-center shadow-xl transition-all"
